@@ -7,351 +7,205 @@
   <link rel="preconnect" href="https://fonts.googleapis.com" />
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
   <link href="https://fonts.googleapis.com/css2?family=Zen+Kaku+Gothic+New:wght@300;400;500;700;900&display=swap" rel="stylesheet" />
-
   <style>
     *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
-
     :root {
-      --brand:        #028DAE;
-      --brand-dark:   #016f8a;
-      --text-main:    #1a1a1a;
-      --text-sub:     #555;
-      --text-light:   #999;
-      --bg-white:     #ffffff;
-      --border:       rgba(0,0,0,0.08);
-      --radius-sm:    8px;
-      --radius-pill:  999px;
-      --shadow-sm:    0 2px 12px rgba(0,0,0,0.07);
-      --tr:           0.18s ease;
-      --header-h:     52px;
+      --brand:       #028DAE;
+      --brand-dark:  #016f8a;
+      --text-main:   #1a1a1a;
+      --text-sub:    #555;
+      --text-light:  #999;
+      --bg-white:    #ffffff;
+      --border:      rgba(0,0,0,0.08);
+      --radius-sm:   8px;
+      --radius-pill: 999px;
+      --shadow-sm:   0 2px 16px rgba(0,0,0,0.07);
+      --tr:          0.18s ease;
+      --header-h:    52px;
       --grid-img:
         linear-gradient(rgba(2,141,174,0.10) 1px, transparent 1px),
         linear-gradient(90deg, rgba(2,141,174,0.10) 1px, transparent 1px);
       --grid-size: 28px 28px;
     }
 
-    .t-en { display: none; }
-    html[lang="en"] .t-en { display: inline; }
-    html[lang="en"] .t-ja { display: none; }
+    /* ── 言語切り替え ── */
+    .t-en  { display: none; }
+    .blk-en { display: none; }
+    html[lang="en"] .t-en   { display: inline; }
+    html[lang="en"] .blk-en { display: block; }
+    html[lang="en"] .t-ja   { display: none; }
+    html[lang="en"] .blk-ja { display: none; }
 
     html { scroll-behavior: smooth; }
-
     body {
       font-family: 'Zen Kaku Gothic New', Inter, -apple-system, sans-serif;
-      font-size: 16px;
-      line-height: 1.8;
+      font-size: 16px; line-height: 1.8;
       color: var(--text-main);
       -webkit-font-smoothing: antialiased;
       background-color: #f9fbfc;
       background-image: var(--grid-img);
       background-size: var(--grid-size);
     }
-
     img { max-width: 100%; height: auto; display: block; }
     a   { color: inherit; text-decoration: none; }
+    .container { width: 100%; max-width: 1100px; margin: 0 auto; padding: 0 28px; }
 
-    .container {
-      width: 100%;
-      max-width: 1100px;
-      margin: 0 auto;
-      padding: 0 28px;
-    }
-
-    /* ===========================
-       HEADER
-    =========================== */
+    /* ===== HEADER ===== */
     header {
-      position: fixed;
-      inset: 0 0 auto 0;
-      z-index: 200;
-      height: var(--header-h);
-      background: #ffffff;
-      border-bottom: 1px solid var(--border);
+      position: fixed; inset: 0 0 auto 0;
+      z-index: 200; height: var(--header-h);
+      background: #ffffff; border-bottom: 1px solid var(--border);
     }
-
     .header-inner {
-      display: flex;
-      align-items: center;
-      justify-content: space-between;
-      height: 100%;
-      position: relative;
+      display: flex; align-items: center;
+      justify-content: space-between; height: 100%; position: relative;
     }
-
-    .logo-link {
-      display: flex;
-      align-items: center;
-      gap: 10px;
-    }
-
-    .logo-text {
-      font-size: 34px;
-      font-weight: 900;
-      color: var(--brand);
-      letter-spacing: -0.02em;
-      line-height: 1;
-    }
-
-    .logo-yomi {
-      font-size: 16px;
-      font-weight: 300;
-      color: var(--text-main);
-      letter-spacing: 0.08em;
-      padding-top: 2px;
-    }
-
+    .logo-link { display: flex; align-items: center; gap: 10px; }
+    .logo-text { font-size: 34px; font-weight: 900; color: var(--brand); letter-spacing: -0.02em; line-height: 1; }
+    .logo-yomi { font-size: 16px; font-weight: 300; color: var(--text-main); letter-spacing: 0.08em; padding-top: 2px; }
     .lang-switch {
-      display: flex;
-      align-items: center;
-      gap: 2px;
-      border: 1.5px solid var(--border);
-      border-radius: var(--radius-pill);
-      padding: 3px;
-      background: var(--bg-white);
-      position: absolute;
-      right: 10px;
+      display: flex; align-items: center; gap: 2px;
+      border: 1.5px solid var(--border); border-radius: var(--radius-pill);
+      padding: 3px; background: var(--bg-white);
+      position: absolute; right: 10px;
     }
-
     .lang-btn {
-      padding: 5px 16px;
-      border-radius: var(--radius-pill);
-      font-size: 13px;
-      font-weight: 700;
-      cursor: pointer;
-      border: none;
-      background: transparent;
-      color: var(--text-sub);
-      font-family: inherit;
-      transition: background var(--tr), color var(--tr);
+      padding: 5px 16px; border-radius: var(--radius-pill);
+      font-size: 13px; font-weight: 700; cursor: pointer;
+      border: none; background: transparent; color: var(--text-sub);
+      font-family: inherit; transition: background var(--tr), color var(--tr);
     }
-
     .lang-btn.active { background: var(--brand); color: #fff; }
 
-    /* ===========================
-       PAGE HERO
-    =========================== */
+    /* ===== PAGE HERO ===== */
     .page-hero {
       padding-top: var(--header-h);
       background-color: #ffffff;
       background-image: var(--grid-img);
       background-size: var(--grid-size);
-      padding-bottom: 56px;
+      padding-bottom: 52px;
     }
-
-    .page-hero-inner {
-      padding-top: 56px;
-    }
-
+    .page-hero-inner { padding-top: 52px; }
     .page-badge {
-      display: inline-block;
-      font-size: 12px;
-      font-weight: 700;
-      letter-spacing: 0.10em;
-      text-transform: uppercase;
-      color: var(--text-main);
-      background: #ffffff;
+      display: inline-block; font-size: 12px; font-weight: 700;
+      letter-spacing: 0.10em; text-transform: uppercase;
+      color: var(--text-main); background: #ffffff;
       border: 1.5px solid rgba(0,0,0,0.20);
-      padding: 4px 14px;
-      border-radius: var(--radius-pill);
-      margin-bottom: 16px;
+      padding: 4px 14px; border-radius: var(--radius-pill); margin-bottom: 16px;
     }
-
     .page-title {
-      font-size: clamp(28px, 4vw, 46px);
-      font-weight: 900;
-      color: var(--text-main);
-      line-height: 1.3;
-      margin-bottom: 10px;
+      font-size: clamp(28px, 4vw, 46px); font-weight: 900;
+      color: var(--text-main); line-height: 1.3; margin-bottom: 10px;
     }
+    .page-date { font-size: 13px; color: var(--text-light); letter-spacing: 0.04em; }
 
-    .page-date {
-      font-size: 13px;
-      color: var(--text-light);
-      letter-spacing: 0.04em;
-    }
-
-    /* ===========================
-       LEGAL CONTENT
-    =========================== */
-    .legal-wrap {
-      padding: 56px 0 96px;
-    }
-
-    .legal-body {
-      max-width: 800px;
-    }
+    /* ===== LEGAL CONTENT ===== */
+    .legal-wrap { padding: 52px 0 96px; }
+    .legal-body { max-width: 960px; }
 
     .legal-intro {
-      font-size: 15px;
-      color: var(--text-sub);
-      line-height: 2.0;
-      margin-bottom: 48px;
-      padding: 24px 28px;
+      font-size: 14px; color: var(--text-sub); line-height: 2.0;
+      margin-bottom: 32px;
+      padding: 22px 28px;
       background: #ffffff;
       border-left: 4px solid var(--brand);
       border-radius: 0 var(--radius-sm) var(--radius-sm) 0;
       box-shadow: var(--shadow-sm);
     }
 
-    .legal-section {
-      margin-bottom: 40px;
+    /* 単一カード */
+    .legal-card {
       background: #ffffff;
       border-radius: var(--radius-sm);
       box-shadow: var(--shadow-sm);
       overflow: hidden;
     }
 
-    .legal-section-head {
-      padding: 18px 28px;
-      background: #f4fafc;
+    .legal-article {
+      padding: 26px 40px;
+      border-bottom: 1px solid rgba(0,0,0,0.06);
+    }
+    .legal-article:last-child { border-bottom: none; }
+
+    .legal-article-title {
+      font-size: 14px; font-weight: 700;
+      color: var(--brand); letter-spacing: 0.02em;
+      margin-bottom: 14px;
+      padding-bottom: 10px;
       border-bottom: 1px solid rgba(2,141,174,0.12);
     }
 
-    .legal-section-title {
-      font-size: 15px;
-      font-weight: 700;
-      color: var(--brand);
-      letter-spacing: 0.02em;
+    .legal-article p {
+      font-size: 14px; color: var(--text-sub); line-height: 2.0; margin-bottom: 10px;
     }
+    .legal-article p:last-child { margin-bottom: 0; }
+    .legal-article p strong { color: var(--text-main); font-weight: 700; }
 
-    .legal-section-body {
-      padding: 22px 28px;
+    .legal-article ul { list-style: none; padding: 0; margin: 8px 0; }
+    .legal-article ul li {
+      font-size: 14px; color: var(--text-sub); line-height: 1.9;
+      padding: 3px 0 3px 18px; position: relative;
     }
-
-    .legal-section-body p {
-      font-size: 14px;
-      color: var(--text-sub);
-      line-height: 2.0;
-      margin-bottom: 12px;
-    }
-
-    .legal-section-body p:last-child { margin-bottom: 0; }
-
-    .legal-section-body ul {
-      list-style: none;
-      padding: 0;
-      margin: 8px 0;
-    }
-
-    .legal-section-body ul li {
-      font-size: 14px;
-      color: var(--text-sub);
-      line-height: 1.9;
-      padding: 4px 0 4px 20px;
-      position: relative;
-    }
-
-    .legal-section-body ul li::before {
-      content: '・';
-      position: absolute;
-      left: 0;
-      color: var(--brand);
-    }
+    .legal-article ul li::before { content: '・'; position: absolute; left: 0; color: var(--brand); }
 
     .legal-notice {
       background: rgba(2,141,174,0.06);
-      border: 1px solid rgba(2,141,174,0.20);
-      border-radius: var(--radius-sm);
-      padding: 16px 20px;
-      margin: 14px 0;
-      font-size: 13px;
-      color: var(--text-main);
-      line-height: 1.9;
+      border: 1px solid rgba(2,141,174,0.18);
+      border-radius: 6px; padding: 14px 18px;
+      margin: 12px 0; font-size: 13px; color: var(--text-main); line-height: 1.9;
     }
+    .legal-notice strong { color: var(--brand); }
 
-    .legal-notice strong {
-      color: var(--brand);
-      font-weight: 700;
+    .legal-table {
+      width: 100%; border-collapse: collapse; margin: 12px 0; font-size: 13px;
     }
+    .legal-table th {
+      background: rgba(2,141,174,0.08); color: var(--brand);
+      font-weight: 700; padding: 9px 14px; text-align: left;
+      border: 1px solid rgba(2,141,174,0.15); white-space: nowrap;
+    }
+    .legal-table td {
+      padding: 9px 14px; border: 1px solid rgba(0,0,0,0.07);
+      color: var(--text-sub); line-height: 1.8; vertical-align: top;
+    }
+    .legal-table tr:nth-child(even) td { background: #f9fbfc; }
 
+    /* お問い合わせ */
     .legal-contact {
-      margin-top: 56px;
-      padding: 28px;
+      margin-top: 32px; padding: 26px 40px;
       background: #ffffff;
       border-radius: var(--radius-sm);
       box-shadow: var(--shadow-sm);
       border-top: 3px solid var(--brand);
     }
-
     .legal-contact-title {
-      font-size: 14px;
-      font-weight: 700;
-      color: var(--brand);
-      margin-bottom: 14px;
-      letter-spacing: 0.04em;
+      font-size: 14px; font-weight: 700; color: var(--brand);
+      margin-bottom: 14px; letter-spacing: 0.04em;
     }
+    .legal-contact-body { font-size: 13px; color: var(--text-sub); line-height: 2.1; }
+    .legal-contact-body a { color: var(--brand); text-decoration: underline; text-underline-offset: 3px; }
 
-    .legal-contact-body {
-      font-size: 13px;
-      color: var(--text-sub);
-      line-height: 2.1;
-    }
-
-    .legal-contact-body a {
-      color: var(--brand);
-      text-decoration: underline;
-      text-underline-offset: 3px;
-    }
-
-    /* ===========================
-       FOOTER
-    =========================== */
-    footer {
-      background: #0d1f2d;
-      color: rgba(255,255,255,0.65);
-      padding: 22px 0 14px;
-    }
-
-    .footer-inner {
-      display: flex;
-      flex-direction: column;
-      gap: 14px;
-    }
-
-    .footer-logo-row {
-      display: flex;
-      align-items: center;
-      gap: 10px;
-      flex-wrap: wrap;
-    }
-
-    .footer-brand-text {
-      font-size: 18px;
-      font-weight: 900;
-      color: rgba(255,255,255,0.90);
-      letter-spacing: -0.01em;
-    }
-
-    .footer-logo-sep {
-      font-size: 11px;
-      color: rgba(255,255,255,0.35);
-    }
-
-    .footer-company-text {
-      font-size: 13px;
-      font-weight: 500;
-      color: rgba(255,255,255,0.60);
-    }
-
+    /* ===== FOOTER ===== */
+    footer { background: #0d1f2d; color: rgba(255,255,255,0.65); padding: 22px 0 14px; }
+    .footer-inner { display: flex; flex-direction: column; gap: 14px; }
+    .footer-logo-row { display: flex; align-items: center; gap: 10px; flex-wrap: wrap; }
+    .footer-brand-text { font-size: 18px; font-weight: 900; color: rgba(255,255,255,0.90); letter-spacing: -0.01em; }
+    .footer-logo-sep { font-size: 11px; color: rgba(255,255,255,0.35); }
+    .footer-company-text { font-size: 13px; font-weight: 500; color: rgba(255,255,255,0.60); transition: color var(--tr); }
+    .footer-company-text:hover { color: #fff; }
     .footer-links { display: flex; flex-wrap: wrap; gap: 16px; }
     .footer-links a { font-size: 12px; color: rgba(255,255,255,0.5); transition: color var(--tr); }
     .footer-links a:hover { color: #fff; }
-
     hr.footer-divider { border: none; border-top: 1px solid rgba(255,255,255,0.07); margin: 14px 0 8px; }
     .footer-copy { font-size: 11px; color: rgba(255,255,255,0.3); }
 
     @media (min-width: 1024px) {
-      .footer-inner {
-        flex-direction: row;
-        justify-content: space-between;
-        align-items: center;
-      }
+      .footer-inner { flex-direction: row; justify-content: space-between; align-items: center; }
     }
-
     @media (max-width: 639px) {
-      .legal-section-head { padding: 14px 18px; }
-      .legal-section-body { padding: 16px 18px; }
-      .legal-intro { padding: 18px 18px; }
-      .legal-contact { padding: 20px 18px; }
+      .legal-article { padding: 20px 18px; }
+      .legal-contact  { padding: 20px 18px; }
+      .legal-intro    { padding: 18px 18px; }
     }
   </style>
 </head>
@@ -381,7 +235,7 @@
     </h1>
     <p class="page-date">
       <span class="t-ja">制定日：2026年4月1日　／　株式会社ペアマインド</span>
-      <span class="t-en">Effective: April 1, 2026　／　pAIr Mind, Inc.</span>
+      <span class="t-en">Effective: April 1, 2026 &nbsp;/&nbsp; pAIr Mind, Inc.</span>
     </p>
   </div>
 </section>
@@ -393,238 +247,376 @@
 
       <!-- はじめに -->
       <div class="legal-intro">
-        本利用規約（以下「本規約」といいます）は、株式会社ペアマインド（以下「当社」といいます）が提供するAI搭載の間取りレイアウト提案・インテリアEC連携サービス「hAIchi（ハイチ）」（以下「本サービス」といいます）の利用条件を定めるものです。<br /><br />
-        本サービスをご利用いただくお客様（以下「ユーザー」といいます）は、本規約の内容に同意のうえ、本サービスをご利用ください。本サービスの利用を開始した時点で、ユーザーは本規約に同意したものとみなします。
-      </div>
-
-      <!-- 第1条 -->
-      <div class="legal-section">
-        <div class="legal-section-head">
-          <p class="legal-section-title">第1条（定義）</p>
+        <div class="blk-ja">
+          本利用規約（以下「本規約」といいます）は、株式会社ペアマインド（以下「当社」といいます）が提供するAI搭載の間取りレイアウト提案・インテリアEC連携サービス「hAIchi（ハイチ）」（以下「本サービス」といいます）の利用条件を定めるものです。<br />
+          本サービスをご利用いただくお客様（以下「ユーザー」といいます）は、本規約の内容に同意のうえ、本サービスをご利用ください。本サービスの利用を開始した時点で、ユーザーは本規約に同意したものとみなします。
         </div>
-        <div class="legal-section-body">
-          <p>本規約において使用する主な用語の定義は以下のとおりです。</p>
-          <ul>
-            <li>「本サービス」とは、当社が提供するhAIchi（ハイチ）のこと、すなわちスマートフォンおよびウェブブラウザを通じて利用可能なAI搭載の間取りレイアウト提案機能およびインテリア・家具のEC連携機能を含む一切のサービスをいいます。</li>
-            <li>「ユーザー」とは、本規約に同意のうえ本サービスを利用する個人または法人をいいます。</li>
-            <li>「一般ユーザー」とは、ライフスタイル情報を入力して間取り提案を受ける個人ユーザーをいいます。</li>
-            <li>「不動産事業者」とは、当社との間でBtoB利用契約を締結し、本サービスのサブスクリプション型プランを利用する法人または個人事業主をいいます。</li>
-            <li>「家具・インテリア事業者」とは、本サービスのEC連携機能を通じて商品を販売する事業者をいいます。</li>
-            <li>「AI生成コンテンツ」とは、本サービスのAI機能によって自動生成された間取りレイアウト、提案文章その他のコンテンツをいいます。</li>
-            <li>「購入機能」とは、本サービスを通じて家具・インテリア事業者の商品を購入するためのEC連携機能をいいます。</li>
-          </ul>
+        <div class="blk-en">
+          These Terms of Service ("Terms") govern the use of "hAIchi," an AI-powered floor layout suggestion and furniture EC integration service ("Service") provided by pAIr Mind, Inc. ("Company").<br />
+          By using the Service, you ("User") agree to be bound by these Terms. Your use of the Service constitutes your acceptance of these Terms.
         </div>
       </div>
 
-      <!-- 第2条 -->
-      <div class="legal-section">
-        <div class="legal-section-head">
-          <p class="legal-section-title">第2条（適用範囲）</p>
-        </div>
-        <div class="legal-section-body">
-          <p>本規約は、一般ユーザーの利用に適用されます。不動産事業者および家具・インテリア事業者については、本規約に加え、別途締結する個別契約が優先して適用されます。</p>
-          <p>本規約に定めのない事項については、当社のプライバシーポリシーおよびその他の規程・ガイドラインが適用されます。これらが本規約と矛盾する場合は、本規約が優先します。</p>
-        </div>
-      </div>
+      <!-- 単一カード -->
+      <div class="legal-card">
 
-      <!-- 第3条 -->
-      <div class="legal-section">
-        <div class="legal-section-head">
-          <p class="legal-section-title">第3条（利用資格・年齢制限）</p>
-        </div>
-        <div class="legal-section-body">
-          <p>本サービスは、18歳以上の方のみご利用いただけます。18歳未満の方は、本サービスを利用することができません。</p>
-          <p>18歳以上であっても、過去に本規約違反により利用停止等の措置を受けた方は、当社の事前の書面による承諾がない限り、本サービスを利用することができません。</p>
-          <p>当社は、ユーザーが前各項の要件を満たすことを確認するための措置を講じることができます。</p>
-        </div>
-      </div>
-
-      <!-- 第4条 -->
-      <div class="legal-section">
-        <div class="legal-section-head">
-          <p class="legal-section-title">第4条（アカウント登録）</p>
-        </div>
-        <div class="legal-section-body">
-          <p>一部の機能を利用するにはアカウント登録が必要です。ユーザーは、登録フォームに正確な情報を入力するものとします。</p>
-          <p>ユーザーは、登録した情報に変更があった場合、速やかに当社所定の方法で更新するものとします。</p>
-          <p>ユーザーは、アカウントのID・パスワードを自己の責任において厳重に管理し、第三者に開示・貸与・譲渡してはなりません。</p>
-          <p>ユーザーのID・パスワードが第三者に使用されたことによって生じた損害は、当社の故意または重大な過失によるものを除き、当社は責任を負いません。</p>
-        </div>
-      </div>
-
-      <!-- 第5条 -->
-      <div class="legal-section">
-        <div class="legal-section-head">
-          <p class="legal-section-title">第5条（サービスの内容）</p>
-        </div>
-        <div class="legal-section-body">
-          <p>当社は、本サービスとして以下の機能を提供します。</p>
-          <ul>
-            <li>チャット・選択式インターフェースによるライフスタイル情報の入力</li>
-            <li>AI（人工知能）による2D間取りレイアウトの自動提案</li>
-            <li>間取り提案に連動した家具・インテリアの提案および購入機能</li>
-            <li>不動産事業者向けの間取り提案精度向上支援ツール（別途契約）</li>
-          </ul>
-          <p>本サービスの内容は、事前の予告なく変更・追加・廃止される場合があります。当該変更等によりユーザーに生じた損害について、当社は法令の範囲内で責任を負います。</p>
-          <p>本サービスは日本国内を主な対象として提供されます。日本国外からのアクセスについては、動作を保証しません。</p>
-        </div>
-      </div>
-
-      <!-- 第6条 -->
-      <div class="legal-section">
-        <div class="legal-section-head">
-          <p class="legal-section-title">第6条（AI生成コンテンツについて）</p>
-        </div>
-        <div class="legal-section-body">
-          <p>本サービスのAI機能が生成する間取り提案はあくまでも参考情報です。実際の不動産・建物への適合性、生活ニーズへの適合性、専門的な建築基準への適合性等について、当社は一切保証しません。</p>
-          <p>AI生成コンテンツに基づく判断・行動により生じた損害について、当社の故意または重大な過失によるものを除き、当社は責任を負いません。ユーザーは最終的な判断を自己の責任において行うものとします。</p>
-          <p>AI生成コンテンツの著作権は当社に帰属します。ユーザーは、本サービスの利用目的の範囲内でのみ、AI生成コンテンツを使用することができます。</p>
-          <p>本サービスで提供する間取り提案はデザイン上の提案であり、宅地建物取引業法上の「仲介」または「媒介」行為ではありません。物件の選定・契約に関する最終的な判断は、専門家（宅地建物取引士等）の助言のもとでユーザー自身が行ってください。</p>
-          <div class="legal-notice">
-            <strong>【重要】AI提案に関するご注意</strong><br />
-            本サービスのAIが提案する間取りレイアウトは、ユーザーが入力したライフスタイル情報をもとに自動生成される参考情報です。実際の建物の構造・設備・法規制等によっては実現できない場合があります。不動産の選定・売買・賃借に関する最終的な意思決定は、必ず専門家にご相談のうえ、ご自身の判断で行ってください。
+        <!-- 第1条 -->
+        <div class="legal-article">
+          <h3 class="legal-article-title">
+            <span class="t-ja">第1条（定義）</span>
+            <span class="t-en">Article 1 — Definitions</span>
+          </h3>
+          <div class="blk-ja">
+            <p>本規約において使用する主な用語の定義は以下のとおりです。</p>
+            <ul>
+              <li>「本サービス」とは、当社が提供するhAIchi（ハイチ）のこと、すなわちスマートフォンおよびウェブブラウザを通じて利用可能なAI搭載の間取りレイアウト提案機能およびインテリア・家具のEC連携機能を含む一切のサービスをいいます。</li>
+              <li>「ユーザー」とは、本規約に同意のうえ本サービスを利用する個人または法人をいいます。</li>
+              <li>「一般ユーザー」とは、ライフスタイル情報を入力して間取り提案を受ける個人ユーザーをいいます。</li>
+              <li>「不動産事業者」とは、当社との間でBtoB利用契約を締結し、本サービスのサブスクリプション型プランを利用する法人または個人事業主をいいます。</li>
+              <li>「家具・インテリア事業者」とは、本サービスのEC連携機能を通じて商品を販売する事業者をいいます。</li>
+              <li>「AI生成コンテンツ」とは、本サービスのAI機能によって自動生成された間取りレイアウト、提案文章その他のコンテンツをいいます。</li>
+              <li>「購入機能」とは、本サービスを通じて家具・インテリア事業者の商品を購入するためのEC連携機能をいいます。</li>
+            </ul>
+          </div>
+          <div class="blk-en">
+            <p>The following terms are used in these Terms as defined below.</p>
+            <ul>
+              <li>"Service" means hAIchi provided by the Company, including AI-powered floor layout suggestion features accessible via smartphone and web browser, furniture and interior EC integration features, and all related services.</li>
+              <li>"User" means any individual or entity who agrees to these Terms and uses the Service.</li>
+              <li>"General User" means an individual user who inputs lifestyle information to receive floor layout suggestions.</li>
+              <li>"Real Estate Business Operator" means a corporation or sole proprietor who enters into a BtoB usage agreement with the Company and uses the subscription plan.</li>
+              <li>"Furniture/Interior Business Operator" means a business operator that sells products through the Service's EC integration feature.</li>
+              <li>"AI-Generated Content" means floor layout proposals, suggestion text, and other content automatically generated by the Service's AI functionality.</li>
+              <li>"Purchase Feature" means the EC integration feature for purchasing products from furniture/interior business operators through the Service.</li>
+            </ul>
           </div>
         </div>
-      </div>
 
-      <!-- 第7条 -->
-      <div class="legal-section">
-        <div class="legal-section-head">
-          <p class="legal-section-title">第7条（購入機能の利用）</p>
+        <!-- 第2条 -->
+        <div class="legal-article">
+          <h3 class="legal-article-title">
+            <span class="t-ja">第2条（適用範囲）</span>
+            <span class="t-en">Article 2 — Scope of Application</span>
+          </h3>
+          <div class="blk-ja">
+            <p>本規約は、一般ユーザーの利用に適用されます。不動産事業者および家具・インテリア事業者については、本規約に加え、別途締結する個別契約が優先して適用されます。</p>
+            <p>本規約に定めのない事項については、当社のプライバシーポリシーおよびその他の規程・ガイドラインが適用されます。これらが本規約と矛盾する場合は、本規約が優先します。</p>
+          </div>
+          <div class="blk-en">
+            <p>These Terms apply to General Users. For Real Estate Business Operators and Furniture/Interior Business Operators, individual agreements separately concluded take precedence over these Terms where applicable.</p>
+            <p>Matters not stipulated in these Terms shall be governed by the Company's Privacy Policy and other regulations. In case of conflict, these Terms shall prevail.</p>
+          </div>
         </div>
-        <div class="legal-section-body">
-          <p>本サービスの購入機能を通じた家具・インテリアの売買契約は、ユーザーと当該商品の販売主体である家具・インテリア事業者との間で成立します。当社は当該売買契約の当事者にはなりません。</p>
-          <p>販売事業者の情報（事業者名、住所、電話番号、返品・交換条件等）は、購入手続き画面において個別に表示されます。ユーザーは購入前に必ずご確認ください。</p>
-          <p>返品・交換・キャンセル等に関するお問い合わせは、原則として販売事業者に直接お申し出ください。当社は、取引の円滑化に向けて合理的な範囲で協力しますが、売買契約上の義務を負いません。</p>
-          <p>決済処理は当社または当社が指定する決済事業者を通じて行います。決済情報の取り扱いについては、別途プライバシーポリシーをご確認ください。</p>
-          <p>ユーザーは、購入確認画面において注文内容を確認のうえ注文を確定するものとします。確定後の取消しは、各販売事業者の定める条件によります。</p>
-        </div>
-      </div>
 
-      <!-- 第8条 -->
-      <div class="legal-section">
-        <div class="legal-section-head">
-          <p class="legal-section-title">第8条（禁止事項）</p>
+        <!-- 第3条 -->
+        <div class="legal-article">
+          <h3 class="legal-article-title">
+            <span class="t-ja">第3条（利用資格・年齢制限）</span>
+            <span class="t-en">Article 3 — Eligibility</span>
+          </h3>
+          <div class="blk-ja">
+            <p>本サービスは、18歳以上の方のみご利用いただけます。18歳未満の方は、本サービスを利用することができません。</p>
+            <p>18歳以上であっても、過去に本規約違反により利用停止等の措置を受けた方は、当社の事前の書面による承諾がない限り、本サービスを利用することができません。</p>
+            <p>当社は、ユーザーが前各項の要件を満たすことを確認するための措置を講じることができます。</p>
+          </div>
+          <div class="blk-en">
+            <p>The Service is available only to users aged 18 and above. Users under 18 may not use the Service.</p>
+            <p>Even users aged 18 or above who have previously had their usage suspended for violations of these Terms may not use the Service without prior written consent from the Company.</p>
+            <p>The Company may take measures to verify that Users meet the requirements set forth above.</p>
+          </div>
         </div>
-        <div class="legal-section-body">
-          <p>ユーザーは、本サービスの利用にあたり、以下の行為を行ってはなりません。</p>
-          <ul>
-            <li>法令または公序良俗に違反する行為</li>
-            <li>当社または第三者の知的財産権、肖像権、プライバシー、名誉その他の権利・利益を侵害する行為</li>
-            <li>本サービスを通じて入力した情報に虚偽の内容を含める行為</li>
-            <li>本サービスのAI機能を意図的に誤動作させる入力を行う行為</li>
-            <li>本サービスへの不正アクセス、リバースエンジニアリング、逆コンパイル、分解その他のソースコードの解析行為</li>
-            <li>本サービスのシステムに過度な負荷を与える行為（自動化ツールによる大量アクセス等）</li>
-            <li>本サービスで提供される情報・コンテンツを当社の事前承諾なく商業目的で複製・転載・頒布する行為</li>
-            <li>当社または第三者を誹謗中傷し、または名誉・信用を毀損する行為</li>
-            <li>スパム・迷惑メッセージの送信その他当社が不適切と判断する行為</li>
-            <li>その他当社が合理的に不適切と判断する行為</li>
-          </ul>
-        </div>
-      </div>
 
-      <!-- 第9条 -->
-      <div class="legal-section">
-        <div class="legal-section-head">
-          <p class="legal-section-title">第9条（サービスの停止・中断）</p>
+        <!-- 第4条 -->
+        <div class="legal-article">
+          <h3 class="legal-article-title">
+            <span class="t-ja">第4条（アカウント登録）</span>
+            <span class="t-en">Article 4 — Account Registration</span>
+          </h3>
+          <div class="blk-ja">
+            <p>一部の機能を利用するにはアカウント登録が必要です。ユーザーは、登録フォームに正確な情報を入力するものとします。</p>
+            <p>ユーザーは、登録した情報に変更があった場合、速やかに当社所定の方法で更新するものとします。</p>
+            <p>ユーザーは、アカウントのID・パスワードを自己の責任において厳重に管理し、第三者に開示・貸与・譲渡してはなりません。</p>
+            <p>ユーザーのID・パスワードが第三者に使用されたことによって生じた損害は、当社の故意または重大な過失によるものを除き、当社は責任を負いません。</p>
+          </div>
+          <div class="blk-en">
+            <p>Account registration is required to use certain features. Users must provide accurate information on the registration form.</p>
+            <p>Users must promptly update their registered information through the Company's prescribed method if any changes occur.</p>
+            <p>Users are solely responsible for managing their account ID and password and must not disclose, lend, or transfer them to any third party.</p>
+            <p>The Company is not liable for damages arising from unauthorized use of a User's ID or password by a third party, except in cases of the Company's intentional misconduct or gross negligence.</p>
+          </div>
         </div>
-        <div class="legal-section-body">
-          <p>当社は、以下のいずれかに該当する場合、事前の通知なくサービスの全部または一部を停止・中断することができます。</p>
-          <ul>
-            <li>サーバー等のシステムの保守・点検・更新を行う場合</li>
-            <li>火災・停電・天災その他の不可抗力によりサービスの提供が困難となった場合</li>
-            <li>サイバー攻撃・不正アクセス等のセキュリティインシデントが発生した場合</li>
-            <li>法令・規制の変更によりサービスの継続が困難となった場合</li>
-            <li>その他当社が合理的に必要と判断した場合</li>
-          </ul>
-          <p>前項の停止・中断により生じた損害について、当社の故意または重大な過失によるものを除き、当社は責任を負いません。</p>
-        </div>
-      </div>
 
-      <!-- 第10条 -->
-      <div class="legal-section">
-        <div class="legal-section-head">
-          <p class="legal-section-title">第10条（知的財産権）</p>
+        <!-- 第5条 -->
+        <div class="legal-article">
+          <h3 class="legal-article-title">
+            <span class="t-ja">第5条（サービスの内容）</span>
+            <span class="t-en">Article 5 — Service Content</span>
+          </h3>
+          <div class="blk-ja">
+            <p>当社は、本サービスとして以下の機能を提供します。</p>
+            <ul>
+              <li>チャット・選択式インターフェースによるライフスタイル情報の入力</li>
+              <li>AI（人工知能）による2D間取りレイアウトの自動提案</li>
+              <li>間取り提案に連動した家具・インテリアの提案および購入機能</li>
+              <li>不動産事業者向けの間取り提案精度向上支援ツール（別途契約）</li>
+            </ul>
+            <p>本サービスの内容は、事前の予告なく変更・追加・廃止される場合があります。本サービスは日本国内を主な対象として提供されます。</p>
+          </div>
+          <div class="blk-en">
+            <p>The Company provides the following features as the Service.</p>
+            <ul>
+              <li>Lifestyle information input via chat and selection-based interface</li>
+              <li>Automatic 2D floor layout proposals by AI (artificial intelligence)</li>
+              <li>Furniture and interior suggestions and purchase feature linked to floor layout proposals</li>
+              <li>Floor layout optimization support tools for real estate operators (separate contract required)</li>
+            </ul>
+            <p>Service content may be changed, added to, or discontinued without prior notice. The Service is primarily intended for use within Japan.</p>
+          </div>
         </div>
-        <div class="legal-section-body">
-          <p>本サービスのシステム、デザイン、テキスト、画像、プログラム等に関する一切の知的財産権は当社または正当な権利者に帰属し、本規約上の利用許諾はかかる知的財産権の譲渡または移転を意味しません。</p>
-          <p>ユーザーが本サービスに入力したライフスタイル情報等のデータに関する権利はユーザーに帰属します。ただし、ユーザーは当社に対し、本サービスの提供・改善・研究開発の目的で当該データを無償・非独占的・世界的に利用することを許諾するものとします。</p>
-        </div>
-      </div>
 
-      <!-- 第11条 -->
-      <div class="legal-section">
-        <div class="legal-section-head">
-          <p class="legal-section-title">第11条（個人情報の取り扱い）</p>
+        <!-- 第6条 -->
+        <div class="legal-article">
+          <h3 class="legal-article-title">
+            <span class="t-ja">第6条（AI生成コンテンツについて）</span>
+            <span class="t-en">Article 6 — AI-Generated Content</span>
+          </h3>
+          <div class="blk-ja">
+            <p>本サービスのAI機能が生成する間取り提案はあくまでも参考情報です。実際の不動産・建物への適合性、生活ニーズへの適合性、専門的な建築基準への適合性等について、当社は一切保証しません。</p>
+            <p>AI生成コンテンツに基づく判断・行動により生じた損害について、当社の故意または重大な過失によるものを除き、当社は責任を負いません。ユーザーは最終的な判断を自己の責任において行うものとします。</p>
+            <p>AI生成コンテンツの著作権は当社に帰属します。ユーザーは、本サービスの利用目的の範囲内でのみ、AI生成コンテンツを使用することができます。</p>
+            <div class="legal-notice">
+              <strong>【重要】AI提案に関するご注意</strong><br />
+              本サービスのAIが提案する間取りレイアウトは参考情報です。実際の建物の構造・設備・法規制等によっては実現できない場合があります。不動産の選定・売買・賃借に関する最終的な意思決定は、必ず専門家にご相談のうえ、ご自身の判断で行ってください。
+            </div>
+          </div>
+          <div class="blk-en">
+            <p>Floor layout suggestions generated by the Service's AI are for reference purposes only. The Company makes no guarantees regarding suitability for actual properties, living needs, or professional architectural standards.</p>
+            <p>The Company is not liable for damages arising from decisions or actions based on AI-Generated Content, except in cases of intentional misconduct or gross negligence. Users are solely responsible for their final decisions.</p>
+            <p>Copyright of AI-Generated Content belongs to the Company. Users may use AI-Generated Content only within the scope of the Service's intended purpose.</p>
+            <div class="legal-notice">
+              <strong>[Important] Notice Regarding AI Proposals</strong><br />
+              AI-generated floor layouts are reference information based on user-provided lifestyle data. They may not be achievable given actual building structures, facilities, or regulations. All final decisions regarding real estate selection, purchase, or lease must be made in consultation with a qualified professional.
+            </div>
+          </div>
         </div>
-        <div class="legal-section-body">
-          <p>当社は、本サービスの利用に際してユーザーから取得した個人情報を、別途定める<a href="privacy.html" style="color:var(--brand);text-decoration:underline;text-underline-offset:3px;">プライバシーポリシー</a>に従い適切に取り扱います。ユーザーは、プライバシーポリシーの内容に同意のうえ、本サービスをご利用ください。</p>
-        </div>
-      </div>
 
-      <!-- 第12条 -->
-      <div class="legal-section">
-        <div class="legal-section-head">
-          <p class="legal-section-title">第12条（免責事項）</p>
+        <!-- 第7条 -->
+        <div class="legal-article">
+          <h3 class="legal-article-title">
+            <span class="t-ja">第7条（購入機能の利用）</span>
+            <span class="t-en">Article 7 — Use of Purchase Feature</span>
+          </h3>
+          <div class="blk-ja">
+            <p>本サービスの購入機能を通じた家具・インテリアの売買契約は、ユーザーと当該商品の販売主体である家具・インテリア事業者との間で成立します。当社は当該売買契約の当事者にはなりません。</p>
+            <p>販売事業者の情報（事業者名、住所、電話番号、返品・交換条件等）は、購入手続き画面において個別に表示されます。ユーザーは購入前に必ずご確認ください。</p>
+            <p>返品・交換・キャンセル等に関するお問い合わせは、原則として販売事業者に直接お申し出ください。当社は、取引の円滑化に向けて合理的な範囲で協力しますが、売買契約上の義務を負いません。</p>
+          </div>
+          <div class="blk-en">
+            <p>Sales contracts for furniture and interiors through the Service's Purchase Feature are concluded between the User and the relevant Furniture/Interior Business Operator. The Company is not a party to such contracts.</p>
+            <p>Seller information (business name, address, phone number, return/exchange conditions, etc.) is displayed individually on the purchase screen. Users must review this information before purchasing.</p>
+            <p>Inquiries regarding returns, exchanges, and cancellations should be directed to the seller. The Company will cooperate within reasonable limits but bears no contractual obligations under the sales contract.</p>
+          </div>
         </div>
-        <div class="legal-section-body">
-          <p>当社は、本サービスがユーザーの特定の目的に適合すること、期待する機能・商品的価値・正確性・有用性を有すること、および特定の品質を有することについて保証しません。</p>
-          <p>当社は、本サービスを通じて取得した情報の完全性・正確性・最新性を保証しません。</p>
-          <p>当社の責任は、消費者契約法その他適用される強行法規により排除できない範囲を除き、当社の故意または重大な過失の場合に限り、かつユーザーが直接かつ現実に被った損害に限るものとし、逸失利益・間接損害・特別損害・結果的損害等については責任を負いません。</p>
-          <p>前項にかかわらず、本サービスが有償サービスとして提供されている場合の損害賠償額の上限は、当該有償サービスについてユーザーが当社に支払った直近12か月分の金額とします。</p>
-        </div>
-      </div>
 
-      <!-- 第13条 -->
-      <div class="legal-section">
-        <div class="legal-section-head">
-          <p class="legal-section-title">第13条（利用停止・退会）</p>
+        <!-- 第8条 -->
+        <div class="legal-article">
+          <h3 class="legal-article-title">
+            <span class="t-ja">第8条（禁止事項）</span>
+            <span class="t-en">Article 8 — Prohibited Activities</span>
+          </h3>
+          <div class="blk-ja">
+            <p>ユーザーは、本サービスの利用にあたり、以下の行為を行ってはなりません。</p>
+            <ul>
+              <li>法令または公序良俗に違反する行為</li>
+              <li>当社または第三者の知的財産権、肖像権、プライバシー、名誉その他の権利・利益を侵害する行為</li>
+              <li>本サービスを通じて入力した情報に虚偽の内容を含める行為</li>
+              <li>本サービスのAI機能を意図的に誤動作させる入力を行う行為</li>
+              <li>本サービスへの不正アクセス、リバースエンジニアリング、逆コンパイル、分解その他のソースコードの解析行為</li>
+              <li>本サービスのシステムに過度な負荷を与える行為（自動化ツールによる大量アクセス等）</li>
+              <li>本サービスで提供される情報・コンテンツを当社の事前承諾なく商業目的で複製・転載・頒布する行為</li>
+              <li>当社または第三者を誹謗中傷し、または名誉・信用を毀損する行為</li>
+              <li>スパム・迷惑メッセージの送信その他当社が不適切と判断する行為</li>
+            </ul>
+          </div>
+          <div class="blk-en">
+            <p>Users must not engage in any of the following activities when using the Service.</p>
+            <ul>
+              <li>Violating laws, regulations, or public order and morals</li>
+              <li>Infringing intellectual property rights, portrait rights, privacy, honor, or other rights of the Company or third parties</li>
+              <li>Submitting false or misleading information through the Service</li>
+              <li>Intentionally causing the AI functionality to malfunction through manipulative input</li>
+              <li>Unauthorized access, reverse engineering, decompilation, disassembly, or source code analysis of the Service</li>
+              <li>Imposing excessive load on the Service's systems (e.g., mass access via automated tools)</li>
+              <li>Reproducing, reposting, or distributing information or content from the Service for commercial purposes without prior consent</li>
+              <li>Defaming or damaging the reputation or credit of the Company or third parties</li>
+              <li>Sending spam or unsolicited messages, or any other conduct the Company deems inappropriate</li>
+            </ul>
+          </div>
         </div>
-        <div class="legal-section-body">
-          <p>当社は、ユーザーが以下のいずれかに該当すると合理的に判断した場合、事前通知なくアカウントの停止・削除等の措置を講じることができます。</p>
-          <ul>
-            <li>本規約に違反した場合</li>
-            <li>登録情報に虚偽が発覚した場合</li>
-            <li>当社、他のユーザーまたは第三者に損害を与えた場合</li>
-            <li>法令に違反した場合またはその恐れがある場合</li>
-            <li>その他当社が合理的に不適切と判断した場合</li>
-          </ul>
-          <p>ユーザーは、当社所定の手続きによりいつでも退会（アカウント削除）することができます。退会後のデータ扱いについては、プライバシーポリシーをご確認ください。</p>
-        </div>
-      </div>
 
-      <!-- 第14条 -->
-      <div class="legal-section">
-        <div class="legal-section-head">
-          <p class="legal-section-title">第14条（規約の変更）</p>
+        <!-- 第9条 -->
+        <div class="legal-article">
+          <h3 class="legal-article-title">
+            <span class="t-ja">第9条（サービスの停止・中断）</span>
+            <span class="t-en">Article 9 — Service Suspension</span>
+          </h3>
+          <div class="blk-ja">
+            <p>当社は、以下のいずれかに該当する場合、事前の通知なくサービスの全部または一部を停止・中断することができます。</p>
+            <ul>
+              <li>サーバー等のシステムの保守・点検・更新を行う場合</li>
+              <li>火災・停電・天災その他の不可抗力によりサービスの提供が困難となった場合</li>
+              <li>サイバー攻撃・不正アクセス等のセキュリティインシデントが発生した場合</li>
+              <li>法令・規制の変更によりサービスの継続が困難となった場合</li>
+              <li>その他当社が合理的に必要と判断した場合</li>
+            </ul>
+            <p>前項の停止・中断により生じた損害について、当社の故意または重大な過失によるものを除き、当社は責任を負いません。</p>
+          </div>
+          <div class="blk-en">
+            <p>The Company may suspend all or part of the Service without prior notice in the following cases.</p>
+            <ul>
+              <li>System maintenance, inspection, or updates of servers or related infrastructure</li>
+              <li>Force majeure events such as fire, power outage, or natural disaster making it difficult to provide the Service</li>
+              <li>Security incidents including cyberattacks or unauthorized access</li>
+              <li>Changes in laws or regulations making it difficult to continue the Service</li>
+              <li>Any other case the Company reasonably deems necessary</li>
+            </ul>
+            <p>The Company is not liable for damages caused by such suspension, except in cases of intentional misconduct or gross negligence.</p>
+          </div>
         </div>
-        <div class="legal-section-body">
-          <p>当社は、必要と判断した場合、本規約を変更することができます。変更後の規約は、当社ウェブサイト・アプリ内に掲示した時点から効力を生じます。</p>
-          <p>変更が重要なものと当社が判断する場合には、本サービス内の通知等により事前にお知らせします。</p>
-          <p>変更後に本サービスの利用を継続した場合、ユーザーは変更後の規約に同意したものとみなします。</p>
-        </div>
-      </div>
 
-      <!-- 第15条 -->
-      <div class="legal-section">
-        <div class="legal-section-head">
-          <p class="legal-section-title">第15条（準拠法・管轄裁判所）</p>
+        <!-- 第10条 -->
+        <div class="legal-article">
+          <h3 class="legal-article-title">
+            <span class="t-ja">第10条（知的財産権）</span>
+            <span class="t-en">Article 10 — Intellectual Property</span>
+          </h3>
+          <div class="blk-ja">
+            <p>本サービスのシステム、デザイン、テキスト、画像、プログラム等に関する一切の知的財産権は当社または正当な権利者に帰属し、本規約上の利用許諾はかかる知的財産権の譲渡または移転を意味しません。</p>
+            <p>ユーザーが本サービスに入力したライフスタイル情報等のデータに関する権利はユーザーに帰属します。ただし、ユーザーは当社に対し、本サービスの提供・改善・研究開発の目的で当該データを無償・非独占的・世界的に利用することを許諾するものとします。</p>
+          </div>
+          <div class="blk-en">
+            <p>All intellectual property rights in the Service's system, design, text, images, programs, and other elements belong to the Company or legitimate rights holders. The license granted under these Terms does not constitute a transfer or assignment of such intellectual property rights.</p>
+            <p>Rights to data such as lifestyle information input by Users into the Service belong to the Users. However, Users grant the Company a worldwide, royalty-free, non-exclusive license to use such data for the purpose of providing, improving, and developing the Service.</p>
+          </div>
         </div>
-        <div class="legal-section-body">
-          <p>本規約は、日本法に準拠し、日本法に従って解釈されます。</p>
-          <p>本サービスに関して当社とユーザーの間で生じた紛争については、東京地方裁判所を第一審の専属的合意管轄裁判所とします。</p>
+
+        <!-- 第11条 -->
+        <div class="legal-article">
+          <h3 class="legal-article-title">
+            <span class="t-ja">第11条（個人情報の取り扱い）</span>
+            <span class="t-en">Article 11 — Personal Information</span>
+          </h3>
+          <div class="blk-ja">
+            <p>当社は、本サービスの利用に際してユーザーから取得した個人情報を、別途定める<a href="privacy.html" style="color:var(--brand);text-decoration:underline;text-underline-offset:3px;">プライバシーポリシー</a>に従い適切に取り扱います。</p>
+          </div>
+          <div class="blk-en">
+            <p>The Company handles personal information obtained from Users through the Service in accordance with its separately established <a href="privacy.html" style="color:var(--brand);text-decoration:underline;text-underline-offset:3px;">Privacy Policy</a>.</p>
+          </div>
         </div>
-      </div>
+
+        <!-- 第12条 -->
+        <div class="legal-article">
+          <h3 class="legal-article-title">
+            <span class="t-ja">第12条（免責事項）</span>
+            <span class="t-en">Article 12 — Disclaimer</span>
+          </h3>
+          <div class="blk-ja">
+            <p>当社は、本サービスがユーザーの特定の目的に適合すること、期待する機能・商品的価値・正確性・有用性を有すること、および特定の品質を有することについて保証しません。</p>
+            <p>当社の責任は、消費者契約法その他適用される強行法規により排除できない範囲を除き、当社の故意または重大な過失の場合に限り、かつユーザーが直接かつ現実に被った損害に限るものとし、逸失利益・間接損害・特別損害・結果的損害等については責任を負いません。</p>
+            <p>本サービスが有償サービスとして提供されている場合の損害賠償額の上限は、ユーザーが当社に支払った直近12か月分の金額とします。</p>
+          </div>
+          <div class="blk-en">
+            <p>The Company makes no warranty that the Service meets Users' specific purposes, has expected functionality, accuracy, or usefulness, or possesses any particular quality.</p>
+            <p>Except to the extent required by applicable mandatory laws, the Company's liability is limited to direct and actual damages caused by the Company's intentional misconduct or gross negligence. The Company is not liable for lost profits, indirect, special, or consequential damages.</p>
+            <p>Where the Service is provided as a paid service, the maximum liability shall be the total amount paid by the User to the Company in the 12 months immediately preceding the relevant claim.</p>
+          </div>
+        </div>
+
+        <!-- 第13条 -->
+        <div class="legal-article">
+          <h3 class="legal-article-title">
+            <span class="t-ja">第13条（利用停止・退会）</span>
+            <span class="t-en">Article 13 — Suspension and Withdrawal</span>
+          </h3>
+          <div class="blk-ja">
+            <p>当社は、ユーザーが以下のいずれかに該当すると合理的に判断した場合、事前通知なくアカウントの停止・削除等の措置を講じることができます。</p>
+            <ul>
+              <li>本規約に違反した場合</li>
+              <li>登録情報に虚偽が発覚した場合</li>
+              <li>当社、他のユーザーまたは第三者に損害を与えた場合</li>
+              <li>法令に違反した場合またはその恐れがある場合</li>
+              <li>その他当社が合理的に不適切と判断した場合</li>
+            </ul>
+            <p>ユーザーは、当社所定の手続きによりいつでも退会（アカウント削除）することができます。</p>
+          </div>
+          <div class="blk-en">
+            <p>The Company may suspend or delete accounts without notice if it reasonably determines that a User falls under any of the following.</p>
+            <ul>
+              <li>Violation of these Terms</li>
+              <li>Discovery of false registration information</li>
+              <li>Causing harm to the Company, other Users, or third parties</li>
+              <li>Violation of applicable laws or risk thereof</li>
+              <li>Any other conduct the Company reasonably deems inappropriate</li>
+            </ul>
+            <p>Users may withdraw (delete their account) at any time through the Company's prescribed procedure.</p>
+          </div>
+        </div>
+
+        <!-- 第14条 -->
+        <div class="legal-article">
+          <h3 class="legal-article-title">
+            <span class="t-ja">第14条（規約の変更）</span>
+            <span class="t-en">Article 14 — Amendments</span>
+          </h3>
+          <div class="blk-ja">
+            <p>当社は、必要と判断した場合、本規約を変更することができます。変更後の規約は、当社ウェブサイト・アプリ内に掲示した時点から効力を生じます。</p>
+            <p>変更が重要なものと当社が判断する場合には、本サービス内の通知等により事前にお知らせします。変更後に本サービスの利用を継続した場合、ユーザーは変更後の規約に同意したものとみなします。</p>
+          </div>
+          <div class="blk-en">
+            <p>The Company may amend these Terms as necessary. Amended Terms take effect upon posting on the Company's website or app.</p>
+            <p>For material changes, the Company will provide advance notice through the Service. Continued use of the Service after amendments constitutes acceptance of the amended Terms.</p>
+          </div>
+        </div>
+
+        <!-- 第15条 -->
+        <div class="legal-article">
+          <h3 class="legal-article-title">
+            <span class="t-ja">第15条（準拠法・管轄裁判所）</span>
+            <span class="t-en">Article 15 — Governing Law and Jurisdiction</span>
+          </h3>
+          <div class="blk-ja">
+            <p>本規約は、日本法に準拠し、日本法に従って解釈されます。</p>
+            <p>本サービスに関して当社とユーザーの間で生じた紛争については、東京地方裁判所を第一審の専属的合意管轄裁判所とします。</p>
+          </div>
+          <div class="blk-en">
+            <p>These Terms are governed by and construed in accordance with the laws of Japan.</p>
+            <p>Any disputes arising between the Company and Users in connection with the Service shall be subject to the exclusive jurisdiction of the Tokyo District Court as the court of first instance.</p>
+          </div>
+        </div>
+
+      </div><!-- /.legal-card -->
 
       <!-- 第16条 / お問い合わせ -->
       <div class="legal-contact">
-        <p class="legal-contact-title">第16条（お問い合わせ）</p>
+        <p class="legal-contact-title">
+          <span class="t-ja">第16条（お問い合わせ）</span>
+          <span class="t-en">Article 16 — Contact</span>
+        </p>
         <div class="legal-contact-body">
-          本規約に関するお問い合わせは、下記の窓口までご連絡ください。<br /><br />
-          株式会社ペアマインド（pAIr Mind, Inc.）<br />
-          サービス名：hAIchi（ハイチ）<br />
-          お問い合わせ：<a href="https://pairmind.co.jp/contact" target="_blank" rel="noopener">https://pairmind.co.jp/contact</a><br /><br />
-          <span style="color:var(--text-light);font-size:12px;">2026年4月1日 制定</span>
+          <div class="blk-ja">
+            本規約に関するお問い合わせは、下記の窓口までご連絡ください。<br /><br />
+            株式会社ペアマインド（pAIr Mind, Inc.）<br />
+            サービス名：hAIchi（ハイチ）<br />
+            お問い合わせ：<a href="https://pairmind.co.jp/#contact" target="_blank" rel="noopener">https://pairmind.co.jp/contact</a><br /><br />
+            <span style="color:var(--text-light);font-size:12px;">2026年4月1日 制定</span>
+          </div>
+          <div class="blk-en">
+            For inquiries regarding these Terms, please contact us at:<br /><br />
+            pAIr Mind, Inc.<br />
+            Service: hAIchi<br />
+            Contact: <a href="https://pairmind.co.jp/#contact" target="_blank" rel="noopener">https://pairmind.co.jp/contact</a><br /><br />
+            <span style="color:var(--text-light);font-size:12px;">Established: April 1, 2026</span>
+          </div>
         </div>
       </div>
 
@@ -640,22 +632,14 @@
         <div class="footer-logo-row">
           <span class="footer-brand-text">hAIchi</span>
           <span class="footer-logo-sep">by</span>
-          <span class="footer-company-text">pAIr Mind, Inc.</span>
+          <a href="https://pairmind.co.jp/" target="_blank" rel="noopener" class="footer-company-text">pAIr Mind, Inc.</a>
         </div>
       </div>
       <div class="footer-links">
-        <a href="index.html">
-          <span class="t-ja">トップへ戻る</span>
-          <span class="t-en">Back to Top</span>
-        </a>
-        <a href="terms.html">
-          <span class="t-ja">利用規約</span>
-          <span class="t-en">Terms</span>
-        </a>
-        <a href="privacy.html">
-          <span class="t-ja">プライバシーポリシー</span>
-          <span class="t-en">Privacy Policy</span>
-        </a>
+        <a href="index.html"><span class="t-ja">トップへ戻る</span><span class="t-en">Back to Top</span></a>
+        <a href="https://pairmind.co.jp/#contact" target="_blank" rel="noopener"><span class="t-ja">お問い合わせ</span><span class="t-en">Contact</span></a>
+        <a href="terms.html"><span class="t-ja">利用規約</span><span class="t-en">Terms</span></a>
+        <a href="privacy.html"><span class="t-ja">プライバシーポリシー</span><span class="t-en">Privacy Policy</span></a>
       </div>
     </div>
     <hr class="footer-divider" />
@@ -673,6 +657,5 @@
     document.documentElement.lang = lang;
   }
 </script>
-
 </body>
 </html>

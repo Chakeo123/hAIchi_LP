@@ -340,7 +340,7 @@
     }
 
     .whats-desc {
-      font-size: clamp(16px, 1.8vw, 20px);
+      font-size: clamp(18px, 2.1vw, 23px);
       color: var(--text-sub);
       line-height: 2.1;
       max-width: 680px;
@@ -528,7 +528,9 @@
       font-size: 13px;
       font-weight: 500;
       color: rgba(255,255,255,0.60);
+      transition: color var(--tr);
     }
+    a.footer-company-text:hover { color: #fff; }
 
     .footer-links { display: flex; flex-wrap: wrap; gap: 16px; }
     .footer-links a { font-size: 12px; color: rgba(255,255,255,0.5); transition: color var(--tr); }
@@ -860,11 +862,11 @@
         <div class="footer-logo-row">
           <span class="footer-brand-text">hAIchi</span>
           <span class="footer-logo-sep">by</span>
-          <span class="footer-company-text">pAIr Mind, Inc.</span>
+          <a href="https://pairmind.co.jp/" target="_blank" rel="noopener" class="footer-company-text">pAIr Mind, Inc.</a>
         </div>
       </div>
       <div class="footer-links">
-        <a href="#">
+        <a href="https://pairmind.co.jp/#contact" target="_blank" rel="noopener">
           <span class="t-ja">お問い合わせ</span>
           <span class="t-en">Contact</span>
         </a>

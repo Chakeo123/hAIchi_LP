@@ -7,381 +7,202 @@
   <link rel="preconnect" href="https://fonts.googleapis.com" />
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
   <link href="https://fonts.googleapis.com/css2?family=Zen+Kaku+Gothic+New:wght@300;400;500;700;900&display=swap" rel="stylesheet" />
-
   <style>
     *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
-
     :root {
-      --brand:        #028DAE;
-      --brand-dark:   #016f8a;
-      --text-main:    #1a1a1a;
-      --text-sub:     #555;
-      --text-light:   #999;
-      --bg-white:     #ffffff;
-      --border:       rgba(0,0,0,0.08);
-      --radius-sm:    8px;
-      --radius-pill:  999px;
-      --shadow-sm:    0 2px 12px rgba(0,0,0,0.07);
-      --tr:           0.18s ease;
-      --header-h:     52px;
+      --brand:       #028DAE;
+      --brand-dark:  #016f8a;
+      --text-main:   #1a1a1a;
+      --text-sub:    #555;
+      --text-light:  #999;
+      --bg-white:    #ffffff;
+      --border:      rgba(0,0,0,0.08);
+      --radius-sm:   8px;
+      --radius-pill: 999px;
+      --shadow-sm:   0 2px 16px rgba(0,0,0,0.07);
+      --tr:          0.18s ease;
+      --header-h:    52px;
       --grid-img:
         linear-gradient(rgba(2,141,174,0.10) 1px, transparent 1px),
         linear-gradient(90deg, rgba(2,141,174,0.10) 1px, transparent 1px);
       --grid-size: 28px 28px;
     }
 
-    .t-en { display: none; }
-    html[lang="en"] .t-en { display: inline; }
-    html[lang="en"] .t-ja { display: none; }
+    .t-en  { display: none; }
+    .blk-en { display: none; }
+    html[lang="en"] .t-en   { display: inline; }
+    html[lang="en"] .blk-en { display: block; }
+    html[lang="en"] .t-ja   { display: none; }
+    html[lang="en"] .blk-ja { display: none; }
 
     html { scroll-behavior: smooth; }
-
     body {
       font-family: 'Zen Kaku Gothic New', Inter, -apple-system, sans-serif;
-      font-size: 16px;
-      line-height: 1.8;
+      font-size: 16px; line-height: 1.8;
       color: var(--text-main);
       -webkit-font-smoothing: antialiased;
       background-color: #f9fbfc;
       background-image: var(--grid-img);
       background-size: var(--grid-size);
     }
-
     img { max-width: 100%; height: auto; display: block; }
     a   { color: inherit; text-decoration: none; }
+    .container { width: 100%; max-width: 1100px; margin: 0 auto; padding: 0 28px; }
 
-    .container {
-      width: 100%;
-      max-width: 1100px;
-      margin: 0 auto;
-      padding: 0 28px;
-    }
-
-    /* ===========================
-       HEADER
-    =========================== */
+    /* ===== HEADER ===== */
     header {
-      position: fixed;
-      inset: 0 0 auto 0;
-      z-index: 200;
-      height: var(--header-h);
-      background: #ffffff;
-      border-bottom: 1px solid var(--border);
+      position: fixed; inset: 0 0 auto 0;
+      z-index: 200; height: var(--header-h);
+      background: #ffffff; border-bottom: 1px solid var(--border);
     }
-
     .header-inner {
-      display: flex;
-      align-items: center;
-      justify-content: space-between;
-      height: 100%;
-      position: relative;
+      display: flex; align-items: center;
+      justify-content: space-between; height: 100%; position: relative;
     }
-
-    .logo-link {
-      display: flex;
-      align-items: center;
-      gap: 10px;
-    }
-
-    .logo-text {
-      font-size: 34px;
-      font-weight: 900;
-      color: var(--brand);
-      letter-spacing: -0.02em;
-      line-height: 1;
-    }
-
-    .logo-yomi {
-      font-size: 16px;
-      font-weight: 300;
-      color: var(--text-main);
-      letter-spacing: 0.08em;
-      padding-top: 2px;
-    }
-
+    .logo-link { display: flex; align-items: center; gap: 10px; }
+    .logo-text { font-size: 34px; font-weight: 900; color: var(--brand); letter-spacing: -0.02em; line-height: 1; }
+    .logo-yomi { font-size: 16px; font-weight: 300; color: var(--text-main); letter-spacing: 0.08em; padding-top: 2px; }
     .lang-switch {
-      display: flex;
-      align-items: center;
-      gap: 2px;
-      border: 1.5px solid var(--border);
-      border-radius: var(--radius-pill);
-      padding: 3px;
-      background: var(--bg-white);
-      position: absolute;
-      right: 10px;
+      display: flex; align-items: center; gap: 2px;
+      border: 1.5px solid var(--border); border-radius: var(--radius-pill);
+      padding: 3px; background: var(--bg-white);
+      position: absolute; right: 10px;
     }
-
     .lang-btn {
-      padding: 5px 16px;
-      border-radius: var(--radius-pill);
-      font-size: 13px;
-      font-weight: 700;
-      cursor: pointer;
-      border: none;
-      background: transparent;
-      color: var(--text-sub);
-      font-family: inherit;
-      transition: background var(--tr), color var(--tr);
+      padding: 5px 16px; border-radius: var(--radius-pill);
+      font-size: 13px; font-weight: 700; cursor: pointer;
+      border: none; background: transparent; color: var(--text-sub);
+      font-family: inherit; transition: background var(--tr), color var(--tr);
     }
-
     .lang-btn.active { background: var(--brand); color: #fff; }
 
-    /* ===========================
-       PAGE HERO
-    =========================== */
+    /* ===== PAGE HERO ===== */
     .page-hero {
       padding-top: var(--header-h);
       background-color: #ffffff;
       background-image: var(--grid-img);
       background-size: var(--grid-size);
-      padding-bottom: 56px;
+      padding-bottom: 52px;
     }
-
-    .page-hero-inner {
-      padding-top: 56px;
-    }
-
+    .page-hero-inner { padding-top: 52px; }
     .page-badge {
-      display: inline-block;
-      font-size: 12px;
-      font-weight: 700;
-      letter-spacing: 0.10em;
-      text-transform: uppercase;
-      color: var(--text-main);
-      background: #ffffff;
+      display: inline-block; font-size: 12px; font-weight: 700;
+      letter-spacing: 0.10em; text-transform: uppercase;
+      color: var(--text-main); background: #ffffff;
       border: 1.5px solid rgba(0,0,0,0.20);
-      padding: 4px 14px;
-      border-radius: var(--radius-pill);
-      margin-bottom: 16px;
+      padding: 4px 14px; border-radius: var(--radius-pill); margin-bottom: 16px;
     }
-
     .page-title {
-      font-size: clamp(28px, 4vw, 46px);
-      font-weight: 900;
-      color: var(--text-main);
-      line-height: 1.3;
-      margin-bottom: 10px;
+      font-size: clamp(28px, 4vw, 46px); font-weight: 900;
+      color: var(--text-main); line-height: 1.3; margin-bottom: 10px;
     }
+    .page-date { font-size: 13px; color: var(--text-light); letter-spacing: 0.04em; }
 
-    .page-date {
-      font-size: 13px;
-      color: var(--text-light);
-      letter-spacing: 0.04em;
-    }
-
-    /* ===========================
-       LEGAL CONTENT
-    =========================== */
-    .legal-wrap {
-      padding: 56px 0 96px;
-    }
-
-    .legal-body {
-      max-width: 800px;
-    }
+    /* ===== LEGAL CONTENT ===== */
+    .legal-wrap { padding: 52px 0 96px; }
+    .legal-body { max-width: 960px; }
 
     .legal-intro {
-      font-size: 15px;
-      color: var(--text-sub);
-      line-height: 2.0;
-      margin-bottom: 48px;
-      padding: 24px 28px;
+      font-size: 14px; color: var(--text-sub); line-height: 2.0;
+      margin-bottom: 32px;
+      padding: 22px 28px;
       background: #ffffff;
       border-left: 4px solid var(--brand);
       border-radius: 0 var(--radius-sm) var(--radius-sm) 0;
       box-shadow: var(--shadow-sm);
     }
 
-    .legal-section {
-      margin-bottom: 40px;
+    .legal-card {
       background: #ffffff;
       border-radius: var(--radius-sm);
       box-shadow: var(--shadow-sm);
       overflow: hidden;
     }
 
-    .legal-section-head {
-      padding: 18px 28px;
-      background: #f4fafc;
+    .legal-article {
+      padding: 26px 40px;
+      border-bottom: 1px solid rgba(0,0,0,0.06);
+    }
+    .legal-article:last-child { border-bottom: none; }
+
+    .legal-article-title {
+      font-size: 14px; font-weight: 700;
+      color: var(--brand); letter-spacing: 0.02em;
+      margin-bottom: 14px;
+      padding-bottom: 10px;
       border-bottom: 1px solid rgba(2,141,174,0.12);
     }
 
-    .legal-section-title {
-      font-size: 15px;
-      font-weight: 700;
-      color: var(--brand);
-      letter-spacing: 0.02em;
+    .legal-article p {
+      font-size: 14px; color: var(--text-sub); line-height: 2.0; margin-bottom: 10px;
     }
+    .legal-article p:last-child { margin-bottom: 0; }
+    .legal-article p strong { color: var(--text-main); font-weight: 700; }
 
-    .legal-section-body {
-      padding: 22px 28px;
+    .legal-article ul { list-style: none; padding: 0; margin: 8px 0; }
+    .legal-article ul li {
+      font-size: 14px; color: var(--text-sub); line-height: 1.9;
+      padding: 3px 0 3px 18px; position: relative;
     }
-
-    .legal-section-body p {
-      font-size: 14px;
-      color: var(--text-sub);
-      line-height: 2.0;
-      margin-bottom: 12px;
-    }
-
-    .legal-section-body p:last-child { margin-bottom: 0; }
-
-    .legal-section-body ul {
-      list-style: none;
-      padding: 0;
-      margin: 8px 0;
-    }
-
-    .legal-section-body ul li {
-      font-size: 14px;
-      color: var(--text-sub);
-      line-height: 1.9;
-      padding: 4px 0 4px 20px;
-      position: relative;
-    }
-
-    .legal-section-body ul li::before {
-      content: '・';
-      position: absolute;
-      left: 0;
-      color: var(--brand);
-    }
-
-    /* テーブル風ブロック */
-    .legal-table {
-      width: 100%;
-      border-collapse: collapse;
-      margin: 14px 0;
-      font-size: 13px;
-    }
-
-    .legal-table th {
-      background: rgba(2,141,174,0.08);
-      color: var(--brand);
-      font-weight: 700;
-      padding: 10px 14px;
-      text-align: left;
-      border: 1px solid rgba(2,141,174,0.15);
-      white-space: nowrap;
-    }
-
-    .legal-table td {
-      padding: 10px 14px;
-      border: 1px solid rgba(0,0,0,0.07);
-      color: var(--text-sub);
-      line-height: 1.8;
-      vertical-align: top;
-    }
-
-    .legal-table tr:nth-child(even) td {
-      background: #f9fbfc;
-    }
+    .legal-article ul li::before { content: '・'; position: absolute; left: 0; color: var(--brand); }
 
     .legal-notice {
       background: rgba(2,141,174,0.06);
-      border: 1px solid rgba(2,141,174,0.20);
-      border-radius: var(--radius-sm);
-      padding: 16px 20px;
-      margin: 14px 0;
-      font-size: 13px;
-      color: var(--text-main);
-      line-height: 1.9;
+      border: 1px solid rgba(2,141,174,0.18);
+      border-radius: 6px; padding: 14px 18px;
+      margin: 12px 0; font-size: 13px; color: var(--text-main); line-height: 1.9;
     }
+    .legal-notice strong { color: var(--brand); }
 
-    .legal-notice strong {
-      color: var(--brand);
-      font-weight: 700;
+    .legal-table {
+      width: 100%; border-collapse: collapse; margin: 12px 0; font-size: 13px;
     }
+    .legal-table th {
+      background: rgba(2,141,174,0.08); color: var(--brand);
+      font-weight: 700; padding: 9px 14px; text-align: left;
+      border: 1px solid rgba(2,141,174,0.15); white-space: nowrap;
+    }
+    .legal-table td {
+      padding: 9px 14px; border: 1px solid rgba(0,0,0,0.07);
+      color: var(--text-sub); line-height: 1.8; vertical-align: top;
+    }
+    .legal-table tr:nth-child(even) td { background: #f9fbfc; }
 
     .legal-contact {
-      margin-top: 56px;
-      padding: 28px;
+      margin-top: 32px; padding: 26px 40px;
       background: #ffffff;
       border-radius: var(--radius-sm);
       box-shadow: var(--shadow-sm);
       border-top: 3px solid var(--brand);
     }
-
     .legal-contact-title {
-      font-size: 14px;
-      font-weight: 700;
-      color: var(--brand);
-      margin-bottom: 14px;
-      letter-spacing: 0.04em;
+      font-size: 14px; font-weight: 700; color: var(--brand);
+      margin-bottom: 14px; letter-spacing: 0.04em;
     }
+    .legal-contact-body { font-size: 13px; color: var(--text-sub); line-height: 2.1; }
+    .legal-contact-body a { color: var(--brand); text-decoration: underline; text-underline-offset: 3px; }
 
-    .legal-contact-body {
-      font-size: 13px;
-      color: var(--text-sub);
-      line-height: 2.1;
-    }
-
-    .legal-contact-body a {
-      color: var(--brand);
-      text-decoration: underline;
-      text-underline-offset: 3px;
-    }
-
-    /* ===========================
-       FOOTER
-    =========================== */
-    footer {
-      background: #0d1f2d;
-      color: rgba(255,255,255,0.65);
-      padding: 22px 0 14px;
-    }
-
-    .footer-inner {
-      display: flex;
-      flex-direction: column;
-      gap: 14px;
-    }
-
-    .footer-logo-row {
-      display: flex;
-      align-items: center;
-      gap: 10px;
-      flex-wrap: wrap;
-    }
-
-    .footer-brand-text {
-      font-size: 18px;
-      font-weight: 900;
-      color: rgba(255,255,255,0.90);
-      letter-spacing: -0.01em;
-    }
-
-    .footer-logo-sep {
-      font-size: 11px;
-      color: rgba(255,255,255,0.35);
-    }
-
-    .footer-company-text {
-      font-size: 13px;
-      font-weight: 500;
-      color: rgba(255,255,255,0.60);
-    }
-
+    /* ===== FOOTER ===== */
+    footer { background: #0d1f2d; color: rgba(255,255,255,0.65); padding: 22px 0 14px; }
+    .footer-inner { display: flex; flex-direction: column; gap: 14px; }
+    .footer-logo-row { display: flex; align-items: center; gap: 10px; flex-wrap: wrap; }
+    .footer-brand-text { font-size: 18px; font-weight: 900; color: rgba(255,255,255,0.90); letter-spacing: -0.01em; }
+    .footer-logo-sep { font-size: 11px; color: rgba(255,255,255,0.35); }
+    .footer-company-text { font-size: 13px; font-weight: 500; color: rgba(255,255,255,0.60); transition: color var(--tr); }
+    .footer-company-text:hover { color: #fff; }
     .footer-links { display: flex; flex-wrap: wrap; gap: 16px; }
     .footer-links a { font-size: 12px; color: rgba(255,255,255,0.5); transition: color var(--tr); }
     .footer-links a:hover { color: #fff; }
-
     hr.footer-divider { border: none; border-top: 1px solid rgba(255,255,255,0.07); margin: 14px 0 8px; }
     .footer-copy { font-size: 11px; color: rgba(255,255,255,0.3); }
 
     @media (min-width: 1024px) {
-      .footer-inner {
-        flex-direction: row;
-        justify-content: space-between;
-        align-items: center;
-      }
+      .footer-inner { flex-direction: row; justify-content: space-between; align-items: center; }
     }
-
     @media (max-width: 639px) {
-      .legal-section-head { padding: 14px 18px; }
-      .legal-section-body { padding: 16px 18px; }
-      .legal-intro { padding: 18px 18px; }
-      .legal-contact { padding: 20px 18px; }
+      .legal-article { padding: 20px 18px; }
+      .legal-contact  { padding: 20px 18px; }
+      .legal-intro    { padding: 18px 18px; }
       .legal-table th, .legal-table td { padding: 8px 10px; font-size: 12px; }
     }
   </style>
@@ -412,7 +233,7 @@
     </h1>
     <p class="page-date">
       <span class="t-ja">制定日：2026年4月1日　／　株式会社ペアマインド</span>
-      <span class="t-en">Effective: April 1, 2026　／　pAIr Mind, Inc.</span>
+      <span class="t-en">Effective: April 1, 2026 &nbsp;/&nbsp; pAIr Mind, Inc.</span>
     </p>
   </div>
 </section>
@@ -422,230 +243,374 @@
   <div class="container">
     <div class="legal-body">
 
-      <!-- はじめに -->
       <div class="legal-intro">
-        株式会社ペアマインド（以下「当社」といいます）は、AI搭載の間取りレイアウト提案・インテリアEC連携サービス「hAIchi（ハイチ）」（以下「本サービス」といいます）を通じて取得する個人情報の保護を重要な社会的責務と認識し、個人情報の保護に関する法律（以下「個人情報保護法」といいます）その他の関連法令に従い、以下のとおりプライバシーポリシー（以下「本ポリシー」といいます）を定めます。
+        <div class="blk-ja">
+          株式会社ペアマインド（以下「当社」といいます）は、AI搭載の間取りレイアウト提案・インテリアEC連携サービス「hAIchi（ハイチ）」（以下「本サービス」といいます）を通じて取得する個人情報の保護を重要な社会的責務と認識し、個人情報の保護に関する法律（以下「個人情報保護法」といいます）その他の関連法令に従い、以下のとおりプライバシーポリシー（以下「本ポリシー」といいます）を定めます。
+        </div>
+        <div class="blk-en">
+          pAIr Mind, Inc. ("Company") recognizes the protection of personal information obtained through "hAIchi," an AI-powered floor layout suggestion and furniture EC integration service ("Service"), as an important social responsibility. In accordance with the Act on the Protection of Personal Information ("APPI") and other applicable laws, the Company establishes this Privacy Policy ("Policy").
+        </div>
       </div>
 
-      <!-- 第1条 -->
-      <div class="legal-section">
-        <div class="legal-section-head">
-          <p class="legal-section-title">第1条（取得する個人情報の種類）</p>
-        </div>
-        <div class="legal-section-body">
-          <p>当社は、本サービスの提供にあたり、以下の個人情報を取得します。</p>
-          <p><strong style="color:var(--text-main);">（1）ユーザーが入力する情報</strong></p>
-          <ul>
-            <li>ライフスタイル情報（家族構成、居住形態の希望、生活スタイル、趣味・嗜好、テレワーク頻度等）</li>
-            <li>アカウント情報（メールアドレス、パスワード（ハッシュ化して保存）、ニックネーム等）</li>
-            <li>購入・決済情報（氏名、配送先住所、決済手段に関する情報※）</li>
-          </ul>
-          <div class="legal-notice">
-            ※クレジットカード番号等の機微な決済情報は、当社が指定する決済代行事業者が安全に処理します。当社はこれを保持しません。
+      <div class="legal-card">
+
+        <!-- 第1条 -->
+        <div class="legal-article">
+          <h3 class="legal-article-title">
+            <span class="t-ja">第1条（取得する個人情報の種類）</span>
+            <span class="t-en">Article 1 — Types of Personal Information Collected</span>
+          </h3>
+          <div class="blk-ja">
+            <p>当社は、本サービスの提供にあたり、以下の個人情報を取得します。</p>
+            <p><strong>（1）ユーザーが入力する情報</strong></p>
+            <ul>
+              <li>ライフスタイル情報（家族構成、居住形態の希望、生活スタイル、趣味・嗜好、テレワーク頻度等）</li>
+              <li>アカウント情報（メールアドレス、パスワード（ハッシュ化して保存）、ニックネーム等）</li>
+              <li>購入・決済情報（氏名、配送先住所、決済手段に関する情報）</li>
+            </ul>
+            <div class="legal-notice">
+              ※クレジットカード番号等の機微な決済情報は、当社が指定する決済代行事業者が安全に処理します。当社はこれを保持しません。
+            </div>
+            <p><strong>（2）自動的に収集する情報</strong></p>
+            <ul>
+              <li>アクセスログ（IPアドレス、ブラウザ種別、OS、アクセス日時等）</li>
+              <li>端末情報（デバイスID、機種名、OSバージョン等）</li>
+              <li>利用状況（閲覧ページ、機能利用履歴、AI提案履歴、購入履歴等）</li>
+              <li>Cookie・類似技術により収集する情報（詳細は第6条参照）</li>
+            </ul>
           </div>
-          <p><strong style="color:var(--text-main);">（2）自動的に収集する情報</strong></p>
-          <ul>
-            <li>アクセスログ（IPアドレス、ブラウザ種別、OS、アクセス日時等）</li>
-            <li>端末情報（デバイスID、機種名、OSバージョン等）</li>
-            <li>利用状況（閲覧ページ、機能利用履歴、AI提案履歴、購入履歴等）</li>
-            <li>Cookie・類似技術により収集する情報（詳細は第6条参照）</li>
-          </ul>
+          <div class="blk-en">
+            <p>The Company collects the following personal information in connection with providing the Service.</p>
+            <p><strong>(1) Information provided by Users</strong></p>
+            <ul>
+              <li>Lifestyle information (family composition, housing preferences, lifestyle, hobbies/interests, remote work frequency, etc.)</li>
+              <li>Account information (email address, password (stored hashed), nickname, etc.)</li>
+              <li>Purchase/payment information (name, delivery address, payment method information)</li>
+            </ul>
+            <div class="legal-notice">
+              ※ Sensitive payment information such as credit card numbers is processed securely by our designated payment processing provider. We do not retain this information.
+            </div>
+            <p><strong>(2) Automatically collected information</strong></p>
+            <ul>
+              <li>Access logs (IP address, browser type, OS, access timestamp, etc.)</li>
+              <li>Device information (device ID, model name, OS version, etc.)</li>
+              <li>Usage data (pages viewed, feature usage history, AI suggestion history, purchase history, etc.)</li>
+              <li>Information collected via Cookie and similar technologies (see Article 6)</li>
+            </ul>
+          </div>
         </div>
-      </div>
 
-      <!-- 第2条 -->
-      <div class="legal-section">
-        <div class="legal-section-head">
-          <p class="legal-section-title">第2条（利用目的）</p>
+        <!-- 第2条 -->
+        <div class="legal-article">
+          <h3 class="legal-article-title">
+            <span class="t-ja">第2条（利用目的）</span>
+            <span class="t-en">Article 2 — Purpose of Use</span>
+          </h3>
+          <div class="blk-ja">
+            <p>当社は、取得した個人情報を以下の目的で利用します。</p>
+            <table class="legal-table">
+              <thead><tr><th>利用目的</th><th>具体的な内容</th></tr></thead>
+              <tbody>
+                <tr><td>本サービスの提供</td><td>AI間取り提案の生成、購入機能の提供、ユーザーサポート対応</td></tr>
+                <tr><td>サービス改善・開発</td><td>AI精度向上のためのデータ分析、新機能の研究開発（原則として匿名化・集計処理後に実施）</td></tr>
+                <tr><td>マーケティング</td><td>ユーザーの利用状況に基づくコンテンツ・広告の最適化（オプトアウト可）</td></tr>
+                <tr><td>不正利用防止</td><td>不正アクセス・なりすまし等のセキュリティ対策</td></tr>
+                <tr><td>法令遵守</td><td>法令上の義務（税務・監査対応等）の履行</td></tr>
+                <tr><td>連絡・通知</td><td>サービスに関する重要なお知らせ、規約変更の通知</td></tr>
+              </tbody>
+            </table>
+            <p>当社は、上記以外の目的で個人情報を利用する場合には、あらかじめユーザーの同意を取得します。</p>
+          </div>
+          <div class="blk-en">
+            <p>The Company uses collected personal information for the following purposes.</p>
+            <table class="legal-table">
+              <thead><tr><th>Purpose</th><th>Specific Content</th></tr></thead>
+              <tbody>
+                <tr><td>Service Provision</td><td>Generating AI floor layout proposals, providing the purchase feature, user support</td></tr>
+                <tr><td>Service Improvement &amp; Development</td><td>Data analysis for AI accuracy improvement, R&amp;D for new features (generally anonymized/aggregated)</td></tr>
+                <tr><td>Marketing</td><td>Content and ad optimization based on usage patterns (opt-out available)</td></tr>
+                <tr><td>Fraud Prevention</td><td>Security measures against unauthorized access and identity fraud</td></tr>
+                <tr><td>Legal Compliance</td><td>Fulfilling legal obligations (tax reporting, audit response, etc.)</td></tr>
+                <tr><td>Communication &amp; Notification</td><td>Important service notices, policy change notifications</td></tr>
+              </tbody>
+            </table>
+            <p>The Company will obtain prior consent from Users before using personal information for any purposes not listed above.</p>
+          </div>
         </div>
-        <div class="legal-section-body">
-          <p>当社は、取得した個人情報を以下の目的で利用します。</p>
-          <table class="legal-table">
-            <thead>
-              <tr><th>利用目的</th><th>具体的な内容</th></tr>
-            </thead>
-            <tbody>
-              <tr><td>本サービスの提供</td><td>AI間取り提案の生成、購入機能の提供、ユーザーサポート対応</td></tr>
-              <tr><td>サービス改善・開発</td><td>AI精度向上のためのデータ分析、新機能の研究開発（原則として匿名化・集計処理後に実施）</td></tr>
-              <tr><td>マーケティング</td><td>ユーザーの利用状況に基づくコンテンツ・広告の最適化（オプトアウト可）</td></tr>
-              <tr><td>不正利用防止</td><td>不正アクセス・なりすまし等のセキュリティ対策</td></tr>
-              <tr><td>法令遵守</td><td>法令上の義務（税務・監査対応等）の履行</td></tr>
-              <tr><td>連絡・通知</td><td>サービスに関する重要なお知らせ、規約変更の通知</td></tr>
-            </tbody>
-          </table>
-          <p>当社は、上記以外の目的で個人情報を利用する場合には、あらかじめユーザーの同意を取得します。</p>
-        </div>
-      </div>
 
-      <!-- 第3条 -->
-      <div class="legal-section">
-        <div class="legal-section-head">
-          <p class="legal-section-title">第3条（第三者提供）</p>
+        <!-- 第3条 -->
+        <div class="legal-article">
+          <h3 class="legal-article-title">
+            <span class="t-ja">第3条（第三者提供）</span>
+            <span class="t-en">Article 3 — Third-Party Disclosure</span>
+          </h3>
+          <div class="blk-ja">
+            <p>当社は、以下のいずれかに該当する場合を除き、ユーザーの個人情報を第三者に提供しません。</p>
+            <ul>
+              <li>ユーザーの事前の同意がある場合</li>
+              <li>法令に基づく場合（裁判所・警察等の公的機関からの法律上の照会・開示要求等）</li>
+              <li>人の生命・身体・財産の保護のために必要であり、ユーザーの同意を得ることが困難な場合</li>
+              <li>国の機関もしくは地方公共団体またはその委託を受けた者が法令の定める事務を遂行することに対して協力する必要がある場合</li>
+            </ul>
+            <p>本サービスの購入機能を通じた商品購入が行われた場合、当社は配送および購入完了の処理に必要な範囲で、家具・インテリア事業者に対しユーザーの氏名・配送先住所・購入明細情報を提供することがあります。</p>
+            <p>当社は、本サービスの改善・統計分析の目的で、個人を特定できない形に加工した統計情報を提携パートナーに提供することがあります。</p>
+          </div>
+          <div class="blk-en">
+            <p>The Company does not provide personal information to third parties except in the following cases.</p>
+            <ul>
+              <li>When the User has given prior consent</li>
+              <li>When required by law (e.g., legal inquiries or disclosure requests from courts, police, or other public authorities)</li>
+              <li>When necessary to protect a person's life, body, or property, and obtaining the User's consent is difficult</li>
+              <li>When cooperation is needed for a government body or local authority to carry out legally mandated duties</li>
+            </ul>
+            <p>When a purchase is made through the Purchase Feature, the Company may provide the User's name, delivery address, and purchase details to the relevant Furniture/Interior Business Operator to the extent necessary for fulfillment.</p>
+            <p>The Company may share anonymized statistical information with affiliated partners for service improvement and analytics purposes.</p>
+          </div>
         </div>
-        <div class="legal-section-body">
-          <p>当社は、以下のいずれかに該当する場合を除き、ユーザーの個人情報を第三者に提供しません。</p>
-          <ul>
-            <li>ユーザーの事前の同意がある場合</li>
-            <li>法令に基づく場合（裁判所・警察等の公的機関からの法律上の照会・開示要求等）</li>
-            <li>人の生命・身体・財産の保護のために必要であり、ユーザーの同意を得ることが困難な場合</li>
-            <li>国の機関もしくは地方公共団体またはその委託を受けた者が法令の定める事務を遂行することに対して協力する必要がある場合</li>
-          </ul>
-          <p>本サービスの購入機能を通じた商品購入が行われた場合、当社は配送および購入完了の処理に必要な範囲で、販売主体である家具・インテリア事業者に対し、ユーザーの氏名・配送先住所・購入明細情報を提供することがあります。</p>
-          <p>当社は、本サービスの改善・統計分析の目的で、個人を特定できない形に加工した統計情報を不動産事業者または家具・インテリア事業者等の提携パートナーに提供することがあります。</p>
-        </div>
-      </div>
 
-      <!-- 第4条 -->
-      <div class="legal-section">
-        <div class="legal-section-head">
-          <p class="legal-section-title">第4条（個人情報の委託）</p>
+        <!-- 第4条 -->
+        <div class="legal-article">
+          <h3 class="legal-article-title">
+            <span class="t-ja">第4条（個人情報の委託）</span>
+            <span class="t-en">Article 4 — Outsourcing of Personal Information Handling</span>
+          </h3>
+          <div class="blk-ja">
+            <p>当社は、本サービスの提供に必要な範囲で、個人情報の取り扱いを以下のような委託先に委託することがあります。委託に際しては、委託先の選定・管理を適切に行います。</p>
+            <ul>
+              <li>クラウドインフラ事業者（サーバー運用・データ保存）</li>
+              <li>AIモデルAPI提供事業者（間取り提案生成）</li>
+              <li>決済代行事業者（決済処理）</li>
+              <li>カスタマーサポートシステム事業者</li>
+              <li>分析ツール提供事業者（アクセス解析等）</li>
+            </ul>
+          </div>
+          <div class="blk-en">
+            <p>The Company may outsource personal information handling to the following types of service providers to the extent necessary for providing the Service. The Company appropriately selects and supervises all outsourcees.</p>
+            <ul>
+              <li>Cloud infrastructure providers (server operations, data storage)</li>
+              <li>AI model API providers (floor layout proposal generation)</li>
+              <li>Payment processing providers</li>
+              <li>Customer support system providers</li>
+              <li>Analytics tool providers (access analysis, etc.)</li>
+            </ul>
+          </div>
         </div>
-        <div class="legal-section-body">
-          <p>当社は、本サービスの提供に必要な範囲で、個人情報の取り扱いの全部または一部を以下のような委託先に委託することがあります。委託に際しては、委託先の選定・管理を適切に行い、個人情報の安全管理について必要かつ適切な監督を行います。</p>
-          <ul>
-            <li>クラウドインフラ事業者（サーバー運用・データ保存）</li>
-            <li>AIモデルAPI提供事業者（間取り提案生成）</li>
-            <li>決済代行事業者（決済処理）</li>
-            <li>カスタマーサポートシステム事業者</li>
-            <li>分析ツール提供事業者（アクセス解析等）</li>
-          </ul>
-        </div>
-      </div>
 
-      <!-- 第5条 -->
-      <div class="legal-section">
-        <div class="legal-section-head">
-          <p class="legal-section-title">第5条（個人情報の海外移転）</p>
+        <!-- 第5条 -->
+        <div class="legal-article">
+          <h3 class="legal-article-title">
+            <span class="t-ja">第5条（個人情報の海外移転）</span>
+            <span class="t-en">Article 5 — International Data Transfers</span>
+          </h3>
+          <div class="blk-ja">
+            <p>当社は、AIモデルAPIおよびクラウドサービスを利用しており、これらのサーバーが日本国外（米国等）に所在するため、ユーザーの個人情報が日本国外に移転される場合があります。</p>
+            <p>現時点で個人情報が移転される可能性のある主な国・地域と移転の理由は以下のとおりです。</p>
+            <table class="legal-table">
+              <thead><tr><th>移転先の国・地域</th><th>移転の理由・利用するサービス</th></tr></thead>
+              <tbody>
+                <tr><td>米国</td><td>AIモデルAPI（大規模言語モデル等）、クラウドストレージ、分析ツールの利用</td></tr>
+                <tr><td>EU/EEA加盟国</td><td>一部クラウドサービスのバックアップ・冗長化</td></tr>
+              </tbody>
+            </table>
+            <p>ユーザーは、海外移転への同意を撤回することができますが、その場合、本サービスの一部または全部をご利用いただけなくなる場合があります。</p>
+          </div>
+          <div class="blk-en">
+            <p>The Company uses AI model APIs and cloud services whose servers may be located outside Japan (e.g., USA). As a result, Users' personal information may be transferred internationally.</p>
+            <p>The main transfer destinations and reasons are as follows.</p>
+            <table class="legal-table">
+              <thead><tr><th>Destination</th><th>Reason / Services Used</th></tr></thead>
+              <tbody>
+                <tr><td>United States</td><td>AI model APIs (large language models, etc.), cloud storage, analytics tools</td></tr>
+                <tr><td>EU/EEA member states</td><td>Backup and redundancy for some cloud services</td></tr>
+              </tbody>
+            </table>
+            <p>Users may withdraw consent to international transfers, but doing so may prevent use of part or all of the Service.</p>
+          </div>
         </div>
-        <div class="legal-section-body">
-          <p>当社は、本サービスの提供においてAIモデルAPIおよびクラウドサービスを利用しており、これらのサービスのサーバーが日本国外（米国等）に所在するため、ユーザーの個人情報が日本国外に移転される場合があります。</p>
-          <p>現時点で個人情報が移転される可能性のある主な国・地域と移転の理由は以下のとおりです。</p>
-          <table class="legal-table">
-            <thead>
-              <tr><th>移転先の国・地域</th><th>移転の理由・利用するサービス</th></tr>
-            </thead>
-            <tbody>
-              <tr><td>米国</td><td>AIモデルAPI（大規模言語モデル等）、クラウドストレージ、分析ツールの利用</td></tr>
-              <tr><td>EU/EEA加盟国</td><td>一部クラウドサービスのバックアップ・冗長化</td></tr>
-            </tbody>
-          </table>
-          <p>ユーザーは、海外移転への同意を撤回することができますが、その場合、本サービスの一部または全部をご利用いただけなくなる場合があります。撤回をご希望の場合は、第12条記載の窓口までお申し出ください。</p>
-        </div>
-      </div>
 
-      <!-- 第6条 -->
-      <div class="legal-section">
-        <div class="legal-section-head">
-          <p class="legal-section-title">第6条（Cookieおよびトラッキング技術）</p>
+        <!-- 第6条 -->
+        <div class="legal-article">
+          <h3 class="legal-article-title">
+            <span class="t-ja">第6条（Cookieおよびトラッキング技術）</span>
+            <span class="t-en">Article 6 — Cookies and Tracking Technologies</span>
+          </h3>
+          <div class="blk-ja">
+            <p>当社は、本サービスの利便性向上・利用状況の分析・最適化を目的として、Cookieおよび類似技術（ウェブビーコン、ローカルストレージ等）を使用します。</p>
+            <table class="legal-table">
+              <thead><tr><th>種類</th><th>目的</th></tr></thead>
+              <tbody>
+                <tr><td>必須Cookie</td><td>ログイン状態の維持、セッション管理等、サービス運営に不可欠なもの</td></tr>
+                <tr><td>機能性Cookie</td><td>言語設定・UIカスタマイズ等のユーザー設定の保存</td></tr>
+                <tr><td>分析Cookie</td><td>アクセス解析、利用状況の把握（Google Analytics等）</td></tr>
+                <tr><td>マーケティングCookie</td><td>ユーザーの興味・嗜好に基づく広告表示の最適化</td></tr>
+              </tbody>
+            </table>
+            <p>ユーザーは、ブラウザの設定によりCookieを無効化することができます。ただし、必須Cookieを無効化した場合、本サービスの一部機能が正常に動作しなくなる場合があります。</p>
+          </div>
+          <div class="blk-en">
+            <p>The Company uses cookies and similar technologies (web beacons, local storage, etc.) to improve Service usability, analyze usage, and optimize the experience.</p>
+            <table class="legal-table">
+              <thead><tr><th>Type</th><th>Purpose</th></tr></thead>
+              <tbody>
+                <tr><td>Essential Cookies</td><td>Login state maintenance, session management, and other functions essential to Service operation</td></tr>
+                <tr><td>Functional Cookies</td><td>Saving user preferences such as language settings and UI customization</td></tr>
+                <tr><td>Analytics Cookies</td><td>Access analysis and usage tracking (Google Analytics, etc.)</td></tr>
+                <tr><td>Marketing Cookies</td><td>Advertising optimization based on user interests and preferences</td></tr>
+              </tbody>
+            </table>
+            <p>Users may disable cookies through browser settings. However, disabling essential cookies may prevent some features from functioning properly.</p>
+          </div>
         </div>
-        <div class="legal-section-body">
-          <p>当社は、本サービスの利便性向上・利用状況の分析・最適化を目的として、Cookie（クッキー）および類似技術（ウェブビーコン、ローカルストレージ等）を使用します。</p>
-          <table class="legal-table">
-            <thead>
-              <tr><th>種類</th><th>目的</th></tr>
-            </thead>
-            <tbody>
-              <tr><td>必須Cookie</td><td>ログイン状態の維持、セッション管理等、サービス運営に不可欠なもの</td></tr>
-              <tr><td>機能性Cookie</td><td>言語設定・UIカスタマイズ等のユーザー設定の保存</td></tr>
-              <tr><td>分析Cookie</td><td>アクセス解析、利用状況の把握（Google Analytics等）</td></tr>
-              <tr><td>マーケティングCookie</td><td>ユーザーの興味・嗜好に基づく広告表示の最適化</td></tr>
-            </tbody>
-          </table>
-          <p>ユーザーは、ブラウザの設定によりCookieを無効化することができます。ただし、必須Cookie等を無効化した場合、本サービスの一部機能が正常に動作しなくなる場合があります。</p>
-        </div>
-      </div>
 
-      <!-- 第7条 -->
-      <div class="legal-section">
-        <div class="legal-section-head">
-          <p class="legal-section-title">第7条（個人情報の保存期間）</p>
+        <!-- 第7条 -->
+        <div class="legal-article">
+          <h3 class="legal-article-title">
+            <span class="t-ja">第7条（個人情報の保存期間）</span>
+            <span class="t-en">Article 7 — Retention Period</span>
+          </h3>
+          <div class="blk-ja">
+            <p>当社は、個人情報を利用目的の達成に必要な期間保存します。主な保存期間の目安は以下のとおりです。</p>
+            <table class="legal-table">
+              <thead><tr><th>情報の種類</th><th>保存期間の目安</th></tr></thead>
+              <tbody>
+                <tr><td>アカウント情報</td><td>退会後1年間（法令上の保存義務がある場合はその期間）</td></tr>
+                <tr><td>購入・取引情報</td><td>取引完了後7年間（税務上の記録保持義務に準拠）</td></tr>
+                <tr><td>AI提案履歴</td><td>退会後6か月間</td></tr>
+                <tr><td>アクセスログ</td><td>取得後最大1年間</td></tr>
+                <tr><td>お問い合わせ記録</td><td>対応完了後3年間</td></tr>
+              </tbody>
+            </table>
+            <p>保存期間を超えた個人情報は、安全な方法により削除または匿名化処理を行います。</p>
+          </div>
+          <div class="blk-en">
+            <p>The Company retains personal information for the period necessary to achieve the purpose of use. Indicative retention periods are as follows.</p>
+            <table class="legal-table">
+              <thead><tr><th>Type of Information</th><th>Retention Period</th></tr></thead>
+              <tbody>
+                <tr><td>Account information</td><td>1 year after withdrawal (or as required by law)</td></tr>
+                <tr><td>Purchase/transaction information</td><td>7 years after transaction completion (in accordance with tax record-keeping obligations)</td></tr>
+                <tr><td>AI suggestion history</td><td>6 months after withdrawal</td></tr>
+                <tr><td>Access logs</td><td>Maximum 1 year after collection</td></tr>
+                <tr><td>Inquiry records</td><td>3 years after resolution</td></tr>
+              </tbody>
+            </table>
+            <p>Personal information that exceeds the retention period will be deleted or anonymized using secure methods.</p>
+          </div>
         </div>
-        <div class="legal-section-body">
-          <p>当社は、個人情報を利用目的の達成に必要な期間保存します。主な保存期間の目安は以下のとおりです。</p>
-          <table class="legal-table">
-            <thead>
-              <tr><th>情報の種類</th><th>保存期間の目安</th></tr>
-            </thead>
-            <tbody>
-              <tr><td>アカウント情報</td><td>退会後1年間（法令上の保存義務がある場合はその期間）</td></tr>
-              <tr><td>購入・取引情報</td><td>取引完了後7年間（税務上の記録保持義務に準拠）</td></tr>
-              <tr><td>AI提案履歴</td><td>退会後6か月間</td></tr>
-              <tr><td>アクセスログ</td><td>取得後最大1年間</td></tr>
-              <tr><td>お問い合わせ記録</td><td>対応完了後3年間</td></tr>
-            </tbody>
-          </table>
-          <p>保存期間を超えた個人情報は、安全な方法により削除または匿名化処理を行います。</p>
-        </div>
-      </div>
 
-      <!-- 第8条 -->
-      <div class="legal-section">
-        <div class="legal-section-head">
-          <p class="legal-section-title">第8条（安全管理措置）</p>
+        <!-- 第8条 -->
+        <div class="legal-article">
+          <h3 class="legal-article-title">
+            <span class="t-ja">第8条（安全管理措置）</span>
+            <span class="t-en">Article 8 — Security Measures</span>
+          </h3>
+          <div class="blk-ja">
+            <p>当社は、個人情報の漏洩・滅失・毀損を防止するため、以下の安全管理措置を講じています。</p>
+            <ul>
+              <li><strong>技術的措置：</strong>個人情報の暗号化、アクセス制御、通信の暗号化（SSL/TLS）、ファイアウォールの設置等</li>
+              <li><strong>組織的措置：</strong>個人情報を取り扱う担当者の限定、従業員への定期的な教育・訓練、利用状況の監視・監査</li>
+              <li><strong>物理的措置：</strong>サーバーへの物理的アクセス管理、不正な持ち出しを防ぐための措置</li>
+            </ul>
+            <p>個人情報の漏洩等のインシデントが発生した場合、当社は速やかに個人情報保護委員会への報告（重大な場合は72時間以内を目標）および影響を受けるユーザーへの通知を行います。</p>
+          </div>
+          <div class="blk-en">
+            <p>The Company implements the following security measures to prevent leakage, loss, or damage of personal information.</p>
+            <ul>
+              <li><strong>Technical measures:</strong> Encryption of personal data, access controls, encrypted communications (SSL/TLS), firewall implementation, etc.</li>
+              <li><strong>Organizational measures:</strong> Limiting personnel with access to personal data, regular employee training, usage monitoring and audits</li>
+              <li><strong>Physical measures:</strong> Physical access controls for servers, measures to prevent unauthorized removal</li>
+            </ul>
+            <p>In the event of a data breach, the Company will promptly report to the Personal Information Protection Commission (within 72 hours for serious breaches) and notify affected Users.</p>
+          </div>
         </div>
-        <div class="legal-section-body">
-          <p>当社は、個人情報の漏洩・滅失・毀損を防止するため、以下の安全管理措置を講じています。</p>
-          <ul>
-            <li><strong style="color:var(--text-main);">技術的措置：</strong>個人情報の暗号化、アクセス制御、通信の暗号化（SSL/TLS）、ファイアウォールの設置等</li>
-            <li><strong style="color:var(--text-main);">組織的措置：</strong>個人情報を取り扱う担当者の限定、従業員への定期的な教育・訓練、利用状況の監視・監査</li>
-            <li><strong style="color:var(--text-main);">物理的措置：</strong>サーバーへの物理的アクセス管理、不正な持ち出しを防ぐための措置</li>
-          </ul>
-          <p>個人情報の漏洩等のインシデントが発生した場合、当社は速やかに個人情報保護委員会への報告（重大な漏洩等の場合は72時間以内を目標）および影響を受けるユーザーへの通知を行います。</p>
-        </div>
-      </div>
 
-      <!-- 第9条 -->
-      <div class="legal-section">
-        <div class="legal-section-head">
-          <p class="legal-section-title">第9条（ユーザーの権利）</p>
+        <!-- 第9条 -->
+        <div class="legal-article">
+          <h3 class="legal-article-title">
+            <span class="t-ja">第9条（ユーザーの権利）</span>
+            <span class="t-en">Article 9 — User Rights</span>
+          </h3>
+          <div class="blk-ja">
+            <p>ユーザーは、当社が保有するご自身の個人情報について、以下の権利を有します。</p>
+            <ul>
+              <li><strong>開示請求：</strong>当社が保有する個人情報の開示を請求する権利</li>
+              <li><strong>訂正・追加・削除請求：</strong>個人情報の内容が事実と異なる場合、訂正・追加・削除を請求する権利</li>
+              <li><strong>利用停止・消去請求：</strong>個人情報保護法の規定に違反して取り扱われている場合、利用停止または消去を請求する権利</li>
+              <li><strong>第三者提供停止請求：</strong>法の規定に違反して第三者に提供されている場合、第三者提供の停止を請求する権利</li>
+              <li><strong>データポータビリティ：</strong>入力したライフスタイル情報等の提供を請求する権利（対応可能な範囲で対応します）</li>
+            </ul>
+            <p>上記の請求は、第12条記載のお問い合わせ窓口にご連絡ください。当社は本人確認を行ったうえで、合理的な期間内に対応します。</p>
+          </div>
+          <div class="blk-en">
+            <p>Users have the following rights regarding their personal information held by the Company.</p>
+            <ul>
+              <li><strong>Right of disclosure:</strong> The right to request disclosure of personal information held by the Company</li>
+              <li><strong>Right to correction, addition, or deletion:</strong> The right to request correction, addition, or deletion if personal information is inaccurate</li>
+              <li><strong>Right to suspend use or erasure:</strong> The right to request suspension of use or erasure if personal information is handled in violation of the APPI</li>
+              <li><strong>Right to stop third-party disclosure:</strong> The right to request cessation of third-party disclosure if made in violation of the law</li>
+              <li><strong>Data portability:</strong> The right to request provision of lifestyle data and other self-related data (to the extent technically feasible)</li>
+            </ul>
+            <p>To exercise these rights, please contact us via the inquiry channel in Article 12. The Company will respond within a reasonable period after verifying identity.</p>
+          </div>
         </div>
-        <div class="legal-section-body">
-          <p>ユーザーは、当社が保有するご自身の個人情報について、以下の権利を有します。</p>
-          <ul>
-            <li><strong style="color:var(--text-main);">開示請求：</strong>当社が保有する個人情報の開示を請求する権利</li>
-            <li><strong style="color:var(--text-main);">訂正・追加・削除請求：</strong>個人情報の内容が事実と異なる場合、訂正・追加・削除を請求する権利</li>
-            <li><strong style="color:var(--text-main);">利用停止・消去請求：</strong>個人情報が個人情報保護法の規定に違反して取り扱われている場合、利用停止または消去を請求する権利</li>
-            <li><strong style="color:var(--text-main);">第三者提供停止請求：</strong>個人情報が法の規定に違反して第三者に提供されている場合、第三者提供の停止を請求する権利</li>
-            <li><strong style="color:var(--text-main);">データポータビリティ：</strong>本サービスで入力したライフスタイル情報等の自己に関するデータの提供を請求する権利（対応可能な範囲で対応します）</li>
-          </ul>
-          <p>上記の請求は、第12条記載のお問い合わせ窓口にご連絡ください。当社は本人確認を行ったうえで、合理的な期間内に対応します。</p>
-        </div>
-      </div>
 
-      <!-- 第10条 -->
-      <div class="legal-section">
-        <div class="legal-section-head">
-          <p class="legal-section-title">第10条（未成年者の個人情報）</p>
+        <!-- 第10条 -->
+        <div class="legal-article">
+          <h3 class="legal-article-title">
+            <span class="t-ja">第10条（未成年者の個人情報）</span>
+            <span class="t-en">Article 10 — Minors' Personal Information</span>
+          </h3>
+          <div class="blk-ja">
+            <p>本サービスは18歳以上の方を対象としています。当社は、18歳未満の方の個人情報を意図的に収集しません。18歳未満の方が誤って個人情報を提供されたことが判明した場合、当社は速やかに当該情報を削除します。</p>
+            <p>保護者の方で、お子様が個人情報を提供された可能性がある場合は、第12条記載の窓口までご連絡ください。</p>
+          </div>
+          <div class="blk-en">
+            <p>The Service is intended for users aged 18 and above. The Company does not intentionally collect personal information from users under 18. If such collection is discovered, the Company will promptly delete the information.</p>
+            <p>Parents or guardians who believe their child may have provided personal information should contact us via the channel in Article 12.</p>
+          </div>
         </div>
-        <div class="legal-section-body">
-          <p>本サービスは18歳以上の方を対象としています。当社は、18歳未満の方の個人情報を意図的に収集しません。18歳未満の方が誤って個人情報を提供されたことが判明した場合、当社は速やかに当該情報を削除します。</p>
-          <p>保護者の方で、お子様が個人情報を提供された可能性がある場合は、第12条記載の窓口までご連絡ください。</p>
-        </div>
-      </div>
 
-      <!-- 第11条 -->
-      <div class="legal-section">
-        <div class="legal-section-head">
-          <p class="legal-section-title">第11条（本ポリシーの変更）</p>
+        <!-- 第11条 -->
+        <div class="legal-article">
+          <h3 class="legal-article-title">
+            <span class="t-ja">第11条（本ポリシーの変更）</span>
+            <span class="t-en">Article 11 — Policy Amendments</span>
+          </h3>
+          <div class="blk-ja">
+            <p>当社は、法令の改正・サービス内容の変更等に伴い、本ポリシーを変更することがあります。重要な変更を行う場合には、本サービス内の通知またはメール等の方法により、ユーザーに事前にお知らせします。</p>
+            <p>変更後の本ポリシーは、当社ウェブサイト・アプリ内への掲示時点から効力を生じます。</p>
+          </div>
+          <div class="blk-en">
+            <p>The Company may amend this Policy in response to legal changes or service updates. For material changes, the Company will notify Users in advance through the Service or by email.</p>
+            <p>Amended Policy takes effect upon posting on the Company's website or app.</p>
+          </div>
         </div>
-        <div class="legal-section-body">
-          <p>当社は、法令の改正・サービス内容の変更等に伴い、本ポリシーを変更することがあります。</p>
-          <p>重要な変更を行う場合には、本サービス内の通知またはメール等の方法により、ユーザーに事前にお知らせします。</p>
-          <p>変更後の本ポリシーは、当社ウェブサイト・アプリ内への掲示時点から効力を生じます。</p>
-        </div>
-      </div>
+
+      </div><!-- /.legal-card -->
 
       <!-- 第12条 / お問い合わせ -->
       <div class="legal-contact">
-        <p class="legal-contact-title">第12条（お問い合わせ窓口）</p>
+        <p class="legal-contact-title">
+          <span class="t-ja">第12条（お問い合わせ窓口）</span>
+          <span class="t-en">Article 12 — Contact</span>
+        </p>
         <div class="legal-contact-body">
-          本ポリシーに関するお問い合わせ、個人情報の開示・訂正・削除等のご請求は、以下の窓口までご連絡ください。<br /><br />
-          <strong style="color:var(--text-main);">個人情報に関するお問い合わせ窓口</strong><br />
-          事業者名：株式会社ペアマインド（pAIr Mind, Inc.）<br />
-          サービス名：hAIchi（ハイチ）<br />
-          お問い合わせフォーム：<a href="https://pairmind.co.jp/contact" target="_blank" rel="noopener">https://pairmind.co.jp/contact</a><br />
-          個人情報保護管理責任者：代表取締役<br /><br />
-          <span style="color:var(--text-light);font-size:12px;">2026年4月1日 制定</span>
+          <div class="blk-ja">
+            本ポリシーに関するお問い合わせ、個人情報の開示・訂正・削除等のご請求は、以下の窓口までご連絡ください。<br /><br />
+            事業者名：株式会社ペアマインド（pAIr Mind, Inc.）<br />
+            サービス名：hAIchi（ハイチ）<br />
+            お問い合わせフォーム：<a href="https://pairmind.co.jp/#contact" target="_blank" rel="noopener">https://pairmind.co.jp/contact</a><br />
+            個人情報保護管理責任者：代表取締役<br /><br />
+            <span style="color:var(--text-light);font-size:12px;">2026年4月1日 制定</span>
+          </div>
+          <div class="blk-en">
+            For inquiries regarding this Policy or requests for disclosure, correction, or deletion of personal information, please contact us at:<br /><br />
+            Business name: pAIr Mind, Inc.<br />
+            Service: hAIchi<br />
+            Contact form: <a href="https://pairmind.co.jp/#contact" target="_blank" rel="noopener">https://pairmind.co.jp/contact</a><br />
+            Privacy Officer: Representative Director<br /><br />
+            <span style="color:var(--text-light);font-size:12px;">Established: April 1, 2026</span>
+          </div>
         </div>
       </div>
 
@@ -661,22 +626,14 @@
         <div class="footer-logo-row">
           <span class="footer-brand-text">hAIchi</span>
           <span class="footer-logo-sep">by</span>
-          <span class="footer-company-text">pAIr Mind, Inc.</span>
+          <a href="https://pairmind.co.jp/" target="_blank" rel="noopener" class="footer-company-text">pAIr Mind, Inc.</a>
         </div>
       </div>
       <div class="footer-links">
-        <a href="index.html">
-          <span class="t-ja">トップへ戻る</span>
-          <span class="t-en">Back to Top</span>
-        </a>
-        <a href="terms.html">
-          <span class="t-ja">利用規約</span>
-          <span class="t-en">Terms</span>
-        </a>
-        <a href="privacy.html">
-          <span class="t-ja">プライバシーポリシー</span>
-          <span class="t-en">Privacy Policy</span>
-        </a>
+        <a href="index.html"><span class="t-ja">トップへ戻る</span><span class="t-en">Back to Top</span></a>
+        <a href="https://pairmind.co.jp/#contact" target="_blank" rel="noopener"><span class="t-ja">お問い合わせ</span><span class="t-en">Contact</span></a>
+        <a href="terms.html"><span class="t-ja">利用規約</span><span class="t-en">Terms</span></a>
+        <a href="privacy.html"><span class="t-ja">プライバシーポリシー</span><span class="t-en">Privacy Policy</span></a>
       </div>
     </div>
     <hr class="footer-divider" />
@@ -694,6 +651,5 @@
     document.documentElement.lang = lang;
   }
 </script>
-
 </body>
 </html>
